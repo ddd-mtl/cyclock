@@ -1,7 +1,6 @@
 import {Cyclock} from "../cyclock";
 import {Slice} from "../cloxel_elements/slice";
 import {toClockAngle} from "../clock_utils";
-import * as PIXI from "pixi.js";
 
 /**
  * A slice of the main circle.

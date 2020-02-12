@@ -49,14 +49,16 @@ function init_pixi_app() {
   // ===========
   main_cyclock = new Cyclock(app, 0.50, 12);
   main_cyclock.resize(canvas_size);
-  ray = new Ray(main_cyclock, "hour", 0xff0000, 10);
+  ray = new Ray(main_cyclock, "hour", 0xff0000, 8);
   main_cyclock.insert(ray);
   // main_cyclock.add(CloxelType.Circle, {radius_pct: 0.5});
   // main_cyclock.add(CloxelType.Ray, {phase: 3});
   //main_cyclock.add(CloxelType.Slice, {phase: 1.5, width: 3});
   //main_cyclock.add(CloxelType.Band, {phase: 6, width: 11.999999, start: 0.5, end: 1.0});
-  //main_cyclock.add(CloxelType.Band, {phase: 0, width: 3, start: 0.0, end: 1.0});
-  main_cyclock.add(CloxelType.Band, {phase: 6, width: 3, start: 0.25, end: 0.75});
+  // Nuclear
+  main_cyclock.add(CloxelType.Band, {phase: 10, width: 2.2, start: 0.0, end: 1.0});
+  main_cyclock.add(CloxelType.Band, {phase: 2, width: 2.2, start: 0.0, end: 1.0});
+  main_cyclock.add(CloxelType.Band, {phase: 6, width: 2.2, start: 0.0, end: 1.0});
   init_text();
   //Set the app starting state
   current_loop = main_loop;
