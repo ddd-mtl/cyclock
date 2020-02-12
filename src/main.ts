@@ -51,8 +51,9 @@ function init_pixi_app() {
   main_cyclock.resize(canvas_size);
   ray = new Ray(main_cyclock, "hour", 0xff0000, 10);
   main_cyclock.insert(ray);
-  main_cyclock.add(CloxelType.Circle, {radius_pct: 0.5});
-  main_cyclock.add(CloxelType.Ray, {phase: 3});
+  // main_cyclock.add(CloxelType.Circle, {radius_pct: 0.5});
+  // main_cyclock.add(CloxelType.Ray, {phase: 3});
+  main_cyclock.add(CloxelType.Slice, {phase: 1.5, width: 3});
   init_text();
   //Set the app starting state
   current_loop = main_loop;
