@@ -53,7 +53,10 @@ function init_pixi_app() {
   main_cyclock.insert(ray);
   // main_cyclock.add(CloxelType.Circle, {radius_pct: 0.5});
   // main_cyclock.add(CloxelType.Ray, {phase: 3});
-  main_cyclock.add(CloxelType.Slice, {phase: 1.5, width: 3});
+  //main_cyclock.add(CloxelType.Slice, {phase: 1.5, width: 3});
+  //main_cyclock.add(CloxelType.Band, {phase: 6, width: 11.999999, start: 0.5, end: 1.0});
+  //main_cyclock.add(CloxelType.Band, {phase: 0, width: 3, start: 0.0, end: 1.0});
+  main_cyclock.add(CloxelType.Band, {phase: 6, width: 3, start: 0.25, end: 0.75});
   init_text();
   //Set the app starting state
   current_loop = main_loop;
