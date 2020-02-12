@@ -1,7 +1,6 @@
 import * as PIXI from "pixi.js"
-import { Cyclock } from "./cyclock";
-import {Ray} from "./cloxel";
-import { init_clock, draw_clock } from "./clock_utils";
+import {Cyclock} from "./cyclock";
+import {CloxelType, Ray} from "./cloxel";
 
 let canvas_size = Math.min(window.innerHeight, window.innerWidth);
 
@@ -47,10 +46,12 @@ function init_pixi_app() {
 
   // Setup stuff
   // ===========
-  main_cyclock = new Cyclock(app, 1.0, 12);
+  main_cyclock = new Cyclock(app, 0.50, 12);
   main_cyclock.resize(canvas_size);
-  ray = new Ray(main_cyclock, "hour", 0xff0000, 9);
-  main_cyclock.add(ray);
+  ray = new Ray(main_cyclock, "hour", 0xff0000, 10);
+  main_cyclock.insert(ray);
+  main_cyclock.add(CloxelType.Circle, {radius_pct: 0.5});
+  main_cyclock.add(CloxelType.Ray, {phase: 3});
   init_text();
   //Set the app starting state
   current_loop = main_loop;
