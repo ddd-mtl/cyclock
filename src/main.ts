@@ -1,6 +1,7 @@
 import * as PIXI from "pixi.js"
 import {Cyclock} from "./cyclock";
-import {CloxelType, Ray} from "./cloxel";
+import {CloxelType} from "./cloxel_type";
+import {Ray} from "./cloxel_elements/ray";
 
 let canvas_size = Math.min(window.innerHeight, window.innerWidth);
 

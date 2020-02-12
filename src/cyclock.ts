@@ -1,5 +1,7 @@
 import * as PIXI from "pixi.js"
-import { CyCircle, Cloxel, CloxelType } from "./cloxel"
+import { Cloxel } from "./cloxel"
+import {CloxelType, create_cloxel} from "./cloxel_type";
+import {CyCircle} from "./cloxel_elements/circle";
 
 /**
  * Or TimeCycle (as opposed to timeline)
@@ -41,7 +43,7 @@ export class Cyclock {
     }
 
     add(e: CloxelType, params: object) {
-        let el = Cloxel.create(this, e, params);
+        let el = create_cloxel(this, e, params);
         this.cloxel_map.set(el.name, el);
     }
 
