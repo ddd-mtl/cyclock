@@ -33,3 +33,4 @@ export abstract class Cloxel {
         this.draw(0);
     }
 }
+

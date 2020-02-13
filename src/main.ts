@@ -51,36 +51,24 @@ function init_pixi_app() {
   main_cyclock.resize(canvas_size);
   ray = new Ray(main_cyclock, "hour", 0xff0000, 8);
   main_cyclock.insert(ray);
-  // main_cyclock.add(CloxelType.Circle, {radius_pct: 0.5});
+  main_cyclock.add({type: CloxelType.Circle, radius_pct: 0.18});
+
+  main_cyclock.add({type: CloxelType.Text, phase: 0, distance: 0.9, message: '12'});
+  main_cyclock.add({type: CloxelType.Text, phase: 2, distance: 0.9, message: '2'});
+  main_cyclock.add({type: CloxelType.Text, phase: 9, distance: 0.9, message: 'saperlipopette'});
+
   // main_cyclock.add(CloxelType.Ray, {phase: 3});
   //main_cyclock.add(CloxelType.Slice, {phase: 1.5, width: 3});
   //main_cyclock.add(CloxelType.Band, {phase: 6, width: 11.999999, start: 0.5, end: 1.0});
-  // Nuclear
-  main_cyclock.add(CloxelType.Band, {phase: 10, width: 2.2, start: 0.0, end: 1.0});
-  main_cyclock.add(CloxelType.Band, {phase: 2, width: 2.2, start: 0.0, end: 1.0});
-  main_cyclock.add(CloxelType.Band, {phase: 6, width: 2.2, start: 0.0, end: 1.0});
-  init_text();
+
+  // // Nuclear
+  // main_cyclock.add({type: CloxelType.Band, phase: 10, width: 2.2, start: 0.25, end: 1.0});
+  // main_cyclock.add({type: CloxelType.Band, phase: 2, width: 2.2, start: 0.25, end: 1.0});
+  // main_cyclock.add({type: CloxelType.Band, phase: 6, width: 2.2, start: 0.25, end: 1.0});
+
   //Set the app starting state
   current_loop = main_loop;
 }
-
-
-// init text styles
-function init_text() {
-  text_style = new PIXI.TextStyle({
-    fontFamily: "Arial",
-    fontSize: 36,
-    fill: "white",
-    stroke: '#ff3300',
-    strokeThickness: 4,
-    dropShadow: true,
-    dropShadowColor: "#000000",
-    dropShadowBlur: 4,
-    dropShadowAngle: Math.PI / 6,
-    dropShadowDistance: 6,
-  });
-}
-
 
 //This code will run when the pixi.loader has finished loading startup images
 function setup() {
@@ -93,13 +81,6 @@ function setup() {
   function onClick (event) {
     console.log('event = ' + JSON.stringify(event))
   }
-}
-
-function draw_text(text) {
-  let message = new PIXI.Text(text, text_style);
-  message.position.set(54, 196);
-  app.stage.addChild(message);
-  return message;
 }
 
 /// Called by ticker

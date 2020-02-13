@@ -1,6 +1,7 @@
 import * as PIXI from "pixi.js";
 
 // percent position of a point on a cycle ; shifted 90° for clock time.
+export function toRadian(x, p) { return (x % p) * (2 * Math.PI / p); }
 export function toClockAngle(x, p) { return ((x + p * 0.75) % p) * (2 * Math.PI / p); }
 
 let hand_sec;

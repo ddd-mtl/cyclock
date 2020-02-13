@@ -42,8 +42,8 @@ export class Cyclock {
         return this.cloxel_map.size;
     }
 
-    add(e: CloxelType, params: object) {
-        let el = create_cloxel(this, e, params);
+    add(cloxel_desc: object) {
+        let el = create_cloxel(this, cloxel_desc);
         this.cloxel_map.set(el.name, el);
     }
 

@@ -17,8 +17,11 @@ export class Ray extends Cloxel {
     }
 
     draw(delta): void {
+        // determine line width
+        const width = Math.max(1, this.owner.x / 100);
+        // render
         this.gfx.clear();
-        this.gfx.lineStyle(3, this.main_color, 1);
+        this.gfx.lineStyle(width, this.main_color, 1);
         this.gfx.position.x = this.owner.x;
         this.gfx.position.y = this.owner.y;
         const phi = toClockAngle(this.phase, this.owner.radix);
