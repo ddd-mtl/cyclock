@@ -27,14 +27,14 @@ export class CyText extends CyPoint {
             align: 'center',
             fontFamily: "Arial",
             fontSize: 14,
-            fill: "white",
+            fill: "black",
             stroke: '#ff3300',
-            strokeThickness: 4,
-            dropShadow: true,
-            dropShadowColor: "#000000",
-            dropShadowBlur: 4,
-            dropShadowAngle: Math.PI / 6,
-            dropShadowDistance: 6,
+            strokeThickness: 1,
+            // dropShadow: true,
+            // dropShadowColor: "#000000",
+            // dropShadowBlur: 4,
+            // dropShadowAngle: Math.PI / 6,
+            // dropShadowDistance: 6,
         });
         this.text = new PIXI.Text(message, this.style);
         //this.text.updateText();
@@ -52,7 +52,9 @@ export class CyText extends CyPoint {
     draw_normal(delta): void {
         const coord = this.getXY();
         this.text.anchor.set(0.5, 0.5);
-        this.text.rotation = toRadian(this.phase, this.owner.radix);
+        if (this.can_tilt) {
+            this.text.rotation = toRadian(this.phase, this.owner.radix);
+        }
         this.text.position.set(
               this.owner.x + coord[0]
             , this.owner.y + coord[1]);

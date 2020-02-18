@@ -1,5 +1,5 @@
 import {Cyclock} from "../cyclock";
-import {Ray} from "../cloxel_elements/ray";
+import {CyHand} from "../cloxel_elements/hand";
 import {toClockAngle} from "../clock_utils";
 import * as PIXI from "pixi.js";
 
@@ -7,7 +7,7 @@ import * as PIXI from "pixi.js";
  * A slice of the main circle.
  * A half-circle (arc) than a triangle.
  */
-export class Slice extends Ray {
+export class Slice extends CyHand {
     public half_width: number;
     public fill_color: number;
     public can_draw_edge: boolean;
@@ -15,8 +15,8 @@ export class Slice extends Ray {
     protected triangle_gfx: PIXI.Graphics;
 
 
-    constructor(owner: Cyclock, name: string, bg_color: number, color: number, phase: number, width: number) {
-        super(owner, name, color, phase);
+    constructor(owner: Cyclock, name: string, bg_color: number, color: number, phase: number, length_pct: number, offset_pct: number, width: number) {
+        super(owner, name, color, phase, length_pct, offset_pct);
         this.half_width = width / 2;
         this.fill_color = bg_color;
         this.can_draw_edge = true;

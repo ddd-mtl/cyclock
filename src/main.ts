@@ -53,13 +53,19 @@ function init_pixi_app() {
   main_cyclock.insert(ray);
   main_cyclock.add({type: CloxelType.Circle, radius_pct: 0.18});
 
-  main_cyclock.add({type: CloxelType.Text, phase: 0, distance: 0.9, message: '12'});
-  main_cyclock.add({type: CloxelType.Text, phase: 2, distance: 0.9, message: '2'});
-  main_cyclock.add({type: CloxelType.Text, phase: 9, distance: 0.9, message: 'saperlipopette'});
+  // main_cyclock.add({type: CloxelType.Text, phase: 9, distance: 0.9, message: 'saperlipopette'});
 
-  // main_cyclock.add(CloxelType.Ray, {phase: 3});
-  //main_cyclock.add(CloxelType.Slice, {phase: 1.5, width: 3});
-  //main_cyclock.add(CloxelType.Band, {phase: 6, width: 11.999999, start: 0.5, end: 1.0});
+  // main_cyclock.add({type: CloxelType.Ray, phase: 3});
+  main_cyclock.add({type: CloxelType.Slice, phase: 1.5, width: 3});
+  //main_cyclock.add({type: CloxelType.Band, phase: 6, width: 11.999999, start: 0.5, end: 1.0});
+
+  main_cyclock.add({type: CloxelType.Hand, phase: 6, length_pct:0.5, offset_pct:0.0});
+
+  // Time Marks
+  main_cyclock.add({type: CloxelType.Text, phase: 0, distance: 1.1, message: '12', can_tilt: false});
+  for (let i = 1; i < 12; i++) {
+    main_cyclock.add({type: CloxelType.Text, phase: i, distance: 0.9, message: ''+i, can_tilt: false});
+  }
 
   // // Nuclear
   // main_cyclock.add({type: CloxelType.Band, phase: 10, width: 2.2, start: 0.25, end: 1.0});

@@ -11,7 +11,7 @@ export class Band extends Slice {
     public length_end: number;
 
     constructor(owner: Cyclock, name: string, bg_color: number, color: number, phase: number, width: number, start: number, end: number) {
-        super(owner, name, bg_color, color, phase, width);
+        super(owner, name, bg_color, color, phase, 1.0, 0.0, width);
         this.length_start = start;
         this.length_end = end;
     }
