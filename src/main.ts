@@ -51,15 +51,18 @@ function init_pixi_app() {
   main_cyclock.resize(canvas_size);
   ray = new Ray(main_cyclock, "hour", 0xff0000, 8);
   main_cyclock.insert(ray);
-  main_cyclock.add({type: CloxelType.Circle, radius_pct: 0.18});
+  //main_cyclock.add({type: CloxelType.Circle, radius_pct: 0.18});
 
   // main_cyclock.add({type: CloxelType.Text, phase: 9, distance: 0.9, message: 'saperlipopette'});
 
   // main_cyclock.add({type: CloxelType.Ray, phase: 3});
-  main_cyclock.add({type: CloxelType.Slice, phase: 1.5, width: 3});
+  //main_cyclock.add({type: CloxelType.Slice, phase: 1.5, width: 3});
   //main_cyclock.add({type: CloxelType.Band, phase: 6, width: 11.999999, start: 0.5, end: 1.0});
 
-  main_cyclock.add({type: CloxelType.Hand, phase: 6, length_pct:0.5, offset_pct:0.0});
+  main_cyclock.add({type: CloxelType.Slice, phase: 7.5, width: 2});
+  main_cyclock.add({type: CloxelType.Slice, phase: 10.5, width: 2});
+
+  //main_cyclock.add({type: CloxelType.Hand, phase: 6, length_pct:0.5, offset_pct:0.0});
 
   // Time Marks
   main_cyclock.add({type: CloxelType.Text, phase: 0, distance: 1.1, message: '12', can_tilt: false});

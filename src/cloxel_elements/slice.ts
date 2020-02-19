@@ -21,10 +21,39 @@ export class Slice extends CyHand {
         this.fill_color = bg_color;
         this.can_draw_edge = true;
         this.can_draw_fill = true;
-        this.triangle_gfx = new PIXI.Graphics();
-        this.owner.app.stage.addChild(this.triangle_gfx);
+        // this.triangle_gfx = new PIXI.Graphics();
+        // this.owner.app.stage.addChild(this.triangle_gfx);
     }
+    draw(delta): void {
+        // compute triangle: b is first vertex.
+        const phase_start = this.phase - this.half_width;
+        const phase_end = this.phase + this.half_width;
 
+        const phi_start = toClockAngle(phase_start, this.owner.radix);
+        const phi_end = toClockAngle(phase_end, this.owner.radix);
+
+        const b_x = this.owner.radius * Math.cos(phi_start);
+        const b_y = this.owner.radius * Math.sin(phi_start);
+
+        // const c_x = this.owner.radius * Math.cos(phi_end);
+        // const c_y = this.owner.radius * Math.sin(phi_end);
+
+        // render half-circle
+        this.gfx.clear();
+        if (this.can_draw_edge) {
+            this.gfx.lineStyle(2, this.main_color, 1);
+        }
+        this.gfx.beginFill(this.main_color);
+        this.gfx.moveTo(0, 0);
+        this.gfx.lineTo(b_x, b_y);
+        this.gfx.arc(0, 0, this.owner.radius, phi_start, phi_end);
+        //this.gfx.arcTo(b_x * 0.5, b_y * 0.5, c_x, c_y, this.owner.radius);
+        this.gfx.lineTo(0, 0);
+        this.gfx.endFill();
+        this.gfx.position.x = this.owner.x;
+        this.gfx.position.y = this.owner.y;
+    }
+    /*
     draw(delta): void {
         // compute triangle: b is first vertex.
         const phase_start = this.phase - this.half_width;
@@ -62,5 +91,5 @@ export class Slice extends CyHand {
         this.gfx.endFill();
         this.gfx.x = this.owner.x;
         this.gfx.y = this.owner.y;
-    }
+    }*/
 }
