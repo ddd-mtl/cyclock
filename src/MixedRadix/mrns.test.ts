@@ -64,5 +64,7 @@ describe("MixedRadixNumeralSystem", () => {
         expect(oSystem.toNames([0])).eql(['Monday']);
         expect(oSystem.toNames([1, 2])).eql(['Tuesday', 'Wednesday']);
         expect(oSystem.valueToNames(8)).eql(['Tuesday', 'Tuesday']);
+        expect(oSystem.toDigitName(0, 1)).equal('Tuesday');
+        expect(oSystem.toDigitName(1, 2)).equal('Wednesday');
     });
 });
