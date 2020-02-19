@@ -13,13 +13,24 @@ export class Radix {
     constructor(value: number, denomination: string, names?: string[]) {
         this.value = value;
         this.denomination = denomination;
-        if (names != undefined && this.names.length) {
+        if (names != undefined && names.length != value) {
             console.error('Radix\' value names count does not match radix');
         }
         this.names = names;
     }
 
-    has_names(): boolean {
+    hasNames(): boolean {
         return this.names != undefined && this.names.length == this.value;
+    }
+
+    getName(value: number): string {
+        if(value >= this.value) {
+            console.warn('value\''+ value +'\' exceeds radix: ' + this.value);
+        }
+        const index = value % this.value;
+        if (this.hasNames()) {
+            return this.names[index];
+        }
+        return '' + index;
     }
 }
