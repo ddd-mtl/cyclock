@@ -2,7 +2,7 @@ import * as PIXI from "pixi.js"
 import {Cyclock} from "./cyclock"
 import {Ray} from "./cloxel_elements/ray";
 import {CyCircle} from "./cloxel_elements/circle";
-
+import {CyclockUI} from "./cyclockUI";
 
 
 /**
@@ -13,9 +13,9 @@ export abstract class Cloxel {
    public readonly name: String;
    public main_color: number;
    protected gfx: PIXI.Graphics;
-   protected owner: Cyclock;
+   protected owner: CyclockUI;
 
-    constructor(owner: Cyclock, name: string, color: number) {
+    constructor(owner: CyclockUI, name: string, color: number) {
         this.owner = owner;
         this.name = name;
         this.main_color = color;

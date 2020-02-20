@@ -1,4 +1,4 @@
-import {Cyclock} from "../cyclock";
+import {CyclockUI} from "../cyclockUI";
 import {toClockAngle} from "../clock_utils";
 import {Cloxel} from "../cloxel";
 
@@ -8,7 +8,7 @@ import {Cloxel} from "../cloxel";
  */
 export class Ray extends Cloxel {
     public phase: number;
-    constructor(owner: Cyclock, name: string, color: number, phase: number) {
+    constructor(owner: CyclockUI, name: string, color: number, phase: number) {
         super(owner, name, color);
         this.phase = phase % owner.radix;
     }

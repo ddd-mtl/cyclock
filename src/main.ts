@@ -47,7 +47,7 @@ function init_pixi_app() {
 
   // Setup stuff
   // ===========
-  main_cyclock = new Cyclock(app, 0.50, 12);
+  main_cyclock = new Cyclock(app, 0.50, 12, "main");
   main_cyclock.resize(canvas_size);
   ray = new Ray(main_cyclock, "hour", 0xff0000, 8);
   main_cyclock.insert(ray);

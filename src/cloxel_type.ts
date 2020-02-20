@@ -1,4 +1,4 @@
-import {Cyclock} from "./cyclock";
+import {CyclockUI} from "./cyclockUI";
 import {Ray} from "./cloxel_elements/ray";
 import {CyHand} from "./cloxel_elements/hand";
 import {CyCircle} from "./cloxel_elements/circle";
@@ -17,8 +17,8 @@ export enum CloxelType {
     Sprite
 }
 
-export function create_cloxel(owner: Cyclock, cloxel_desc: object): Cloxel {
-    const count_str = '_' + owner.element_count();
+export function createCloxel(owner: CyclockUI, cloxel_desc: object): Cloxel {
+    const count_str = '_' + owner.elementCount();
     const el = cloxel_desc['type'];
     switch (el) {
         case CloxelType.Circle: {

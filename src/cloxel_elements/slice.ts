@@ -1,4 +1,4 @@
-import {Cyclock} from "../cyclock";
+import {CyclockUI} from "../cyclockUI";
 import {CyHand} from "../cloxel_elements/hand";
 import {toClockAngle} from "../clock_utils";
 import * as PIXI from "pixi.js";
@@ -15,7 +15,7 @@ export class Slice extends CyHand {
     protected triangle_gfx: PIXI.Graphics;
 
 
-    constructor(owner: Cyclock, name: string, bg_color: number, color: number, phase: number, length_pct: number, offset_pct: number, width: number) {
+    constructor(owner: CyclockUI, name: string, bg_color: number, color: number, phase: number, length_pct: number, offset_pct: number, width: number) {
         super(owner, name, color, phase, length_pct, offset_pct);
         this.half_width = width / 2;
         this.fill_color = bg_color;

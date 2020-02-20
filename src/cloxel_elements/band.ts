@@ -1,4 +1,4 @@
-import {Cyclock} from "../cyclock";
+import {CyclockUI} from "../cyclockUI";
 import {Slice} from "../cloxel_elements/slice";
 import {toClockAngle} from "../clock_utils";
 
@@ -10,7 +10,7 @@ export class Band extends Slice {
     public length_start: number;
     public length_end: number;
 
-    constructor(owner: Cyclock, name: string, bg_color: number, color: number, phase: number, width: number, start: number, end: number) {
+    constructor(owner: CyclockUI, name: string, bg_color: number, color: number, phase: number, width: number, start: number, end: number) {
         super(owner, name, bg_color, color, phase, 1.0, 0.0, width);
         this.length_start = start;
         this.length_end = end;

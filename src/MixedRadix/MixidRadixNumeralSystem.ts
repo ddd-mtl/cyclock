@@ -7,7 +7,7 @@ export class MixedRadixNumeralSystem {
     private radixStack: Radix[];
     private radices: number[];
 
-    constructor(name: string) {
+    constructor(name: string, overflowStrategy?: OverflowStrategyEnum) {
         this.name = name;
         this.overflowStrategy = OverflowStrategyEnum.Discard;
         this.radixStack = [];

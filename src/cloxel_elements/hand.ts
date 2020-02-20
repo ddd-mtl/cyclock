@@ -1,4 +1,4 @@
-import {Cyclock} from "../cyclock";
+import {CyclockUI} from "../cyclockUI";
 import {toClockAngle} from "../clock_utils";
 import {Ray} from "../cloxel_elements/ray";
 
@@ -12,7 +12,7 @@ export class CyHand extends Ray {
     public offset_pct: number;
 
     constructor(
-        owner: Cyclock,
+        owner: CyclockUI,
         name: string,
         color: number,
         phase: number,

@@ -1,4 +1,4 @@
-import {Cyclock} from "../cyclock";
+import {CyclockUI} from "../cyclockUI";
 import {toClockAngle, toRadian} from "../clock_utils";
 import {Cloxel} from "../cloxel";
 import {CyPoint} from "./point";
@@ -18,7 +18,7 @@ export class CyText extends CyPoint {
     private can_redraw: boolean;
     private sprite: PIXI.Sprite;
 
-    constructor(owner: Cyclock, name: string, color: number, phase: number, distance: number, message: string, can_tilt: boolean) {
+    constructor(owner: CyclockUI, name: string, color: number, phase: number, distance: number, message: string, can_tilt: boolean) {
         super(owner, name, color, phase, distance);
         this.can_redraw = true;
         this.message = message;

@@ -3,12 +3,14 @@ import {MixedRadixNumeralSystem} from "./MixidRadixNumeralSystem";
 
 export class MixedRadixValue {
     public value: number;
-    public value_digits: number[];
-    public is_time_bound: boolean;
-    public numeral_system: MixedRadixNumeralSystem;
+    public valueDigits: number[];
+    public isTimeBound: boolean;
+    public numeralSystem: MixedRadixNumeralSystem;
 
-    constructor(value: number) {
-        this.name = name;
-        this.radixStack = [];
+    constructor(value: number, numeralSystem: MixedRadixNumeralSystem) {
+        this.value = value;
+        this.valueDigits = numeralSystem.toDigits(value);
+        this.isTimeBound = false;
+        this.numeralSystem = numeralSystem;
     }
 }
