@@ -1,6 +1,6 @@
 import {Cloxel} from "../cloxel";
 import {Ray} from "../cloxel_elements/ray";
-import {CyclockUI} from "../cyclockUI";
+import {CyclockUI} from "../ui/cyclockUI";
 import {toClockAngle} from "../clock_utils";
 
 /**

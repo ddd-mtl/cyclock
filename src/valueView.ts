@@ -1,5 +1,5 @@
 import { Cloxel } from "./cloxel"
-import {CyclockUI} from "./cyclockUI";
+import {CyclockUI} from "./ui/cyclockUI";
 
 export class ValueView {
     private cloxelList: Cloxel[];

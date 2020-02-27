@@ -1,4 +1,4 @@
-import {CyclockUI} from "../cyclockUI";
+import {CyclockUI} from "../ui/cyclockUI";
 import {toClockAngle, toRadian} from "../clock_utils";
 import {Cloxel} from "../cloxel";
 import {CyPoint} from "./point";

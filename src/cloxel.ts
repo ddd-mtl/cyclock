@@ -2,7 +2,7 @@ import * as PIXI from "pixi.js"
 import {Cyclock} from "./cyclock"
 import {Ray} from "./cloxel_elements/ray";
 import {CyCircle} from "./cloxel_elements/circle";
-import {CyclockUI} from "./cyclockUI";
+import {CyclockUI} from "./ui/cyclockUI";
 
 
 /**

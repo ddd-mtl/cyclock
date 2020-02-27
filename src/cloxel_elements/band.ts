@@ -1,4 +1,4 @@
-import {CyclockUI} from "../cyclockUI";
+import {CyclockUI} from "../ui/cyclockUI";
 import {Slice} from "../cloxel_elements/slice";
 import {toClockAngle} from "../clock_utils";
 

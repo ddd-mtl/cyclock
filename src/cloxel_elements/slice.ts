@@ -1,4 +1,4 @@
-import {CyclockUI} from "../cyclockUI";
+import {CyclockUI} from "../ui/cyclockUI";
 import {CyHand} from "../cloxel_elements/hand";
 import {toClockAngle} from "../clock_utils";
 import * as PIXI from "pixi.js";

@@ -1,4 +1,4 @@
-import {CyclockUI} from "./cyclockUI";
+import {CyclockUI} from "./ui/cyclockUI";
 import {Ray} from "./cloxel_elements/ray";
 import {CyHand} from "./cloxel_elements/hand";
 import {CyCircle} from "./cloxel_elements/circle";

@@ -25,4 +25,16 @@ export class MixedRadixValue {
         this.numeralSystem = numeralSystem;
         this.setValue(this.value);
     }
+
+    getValue(): number {
+        return this.value;
+    }
+
+    getDigits(): number[] {
+        return this.valueDigits;
+    }
+
+    getNumeralSystem(): MixedRadixNumeralSystem {
+        return this.numeralSystem;
+    }
 }

@@ -2,22 +2,38 @@ import {Radix} from "../MixedRadix/Radix";
 import {MixedRadixNumeralSystem} from "./MixidRadixNumeralSystem";
 import {MixedRadixValue} from "./MixedRadixValue";
 
+/**
+ *
+ */
 export interface VariableObserver {
     onVariableUpdate(value: MixedRadixValue): void;
 }
 
+/**
+ * Models a variable that can have e changing value.
+ */
 export class MixedRadixVariable {
     private value: MixedRadixValue;
     public isTimeBound: boolean;
     private observerList: VariableObserver[];
+    public readonly name: string;
 
-    constructor(value: number, numeralSystem: MixedRadixNumeralSystem) {
+    constructor(name: string, value: number, numeralSystem: MixedRadixNumeralSystem) {
+        this.name = name;
         this.value = new MixedRadixValue(value, numeralSystem);
         this.isTimeBound = false;
         this.observerList = [];
     }
 
-    private notify_observers() {
+    registerObserver(obs: VariableObserver) {
+        this.observerList.push(obs);
+    }
+
+    unregisterObserver(obs: VariableObserver) {
+        this.observerList = this.observerList.filter(obj => obj !== obs);
+    }
+
+    private notifyObservers() {
         for (let obs of this.observerList) {
             obs.onVariableUpdate(this.value);
         }
@@ -25,17 +41,25 @@ export class MixedRadixVariable {
 
     setValue(value: number) {
         this.value.setValue(value);
-        this.notify_observers();
+        this.notifyObservers();
     }
 
     setDigits(digits: number[]) {
         this.value.setDigits(digits);
-        this.notify_observers();
+        this.notifyObservers();
     }
 
     setNumeralSystem(numeralSystem: MixedRadixNumeralSystem) {
         this.value.setNumeralSystem(numeralSystem);
-        // this.notify_observers();
+        // this.notifyObservers();
+    }
+
+    getNumeralSystem(): MixedRadixNumeralSystem {
+        return this.value.getNumeralSystem();
+    }
+
+    getValue(): MixedRadixValue {
+        return this.value;
     }
 }
 

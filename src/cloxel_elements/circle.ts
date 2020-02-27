@@ -1,4 +1,4 @@
-import {CyclockUI} from "../cyclockUI";
+import {CyclockUI} from "../ui/cyclockUI";
 import {Cloxel} from "../cloxel";
 
 /**

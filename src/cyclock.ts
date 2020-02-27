@@ -1,10 +1,11 @@
 import * as PIXI from "pixi.js"
 import { Cloxel } from "./cloxel"
-import { CyclockUI } from "./cyclockUI"
+import { CyclockUI } from "./ui/cyclockUI"
 import {CloxelType, createCloxel} from "./cloxel_type";
 import {CyCircle} from "./cloxel_elements/circle";
 import {MixedRadixNumeralSystem} from "./MixedRadix/MixidRadixNumeralSystem";
 import {MixedRadixValue} from "./MixedRadix/MixedRadixValue";
+import {VariableObserver, MixedRadixVariable} from "./MixedRadix/MixedRadixVariable";
 
 /**
  * Or TimeCycle (as opposed to timeline)
@@ -15,7 +16,7 @@ export class Cyclock {
     public readonly title: string;
     private ui: CyclockUI;
     private numeralSystem: MixedRadixNumeralSystem;
-    private valueList: MixedRadixValue[];
+    private variableMap: Map<string, MixedRadixVariable>;
 
     // static func
     static create(app: PIXI.Application, params: object): Cyclock {
@@ -28,19 +29,22 @@ export class Cyclock {
         this.title = title;
         this.ui = new CyclockUI(app, radius_pct, radix);
         this.numeralSystem = null;
-        this.valueList = [];
+        this.variableMap = new Map();
     }
 
     setSystem(numeralSystem: MixedRadixNumeralSystem) {
         this.numeralSystem = numeralSystem;
     }
 
-    addValue(mrValue: MixedRadixValue) {
-        if(mrValue.numeralSystem == this.numeralSystem) {
-            this.valueList.push(mrValue);
-        } else {
-            console.warn('Failed adding value: not in same numeral system as the clock');
+    addVariable(variable: MixedRadixVariable) {
+        if(variable.getNumeralSystem() != this.numeralSystem) {
+            console.warn('Failed adding variable: not in same numeral system as the clock');
+            return;
         }
+        this.ui.addVariable(variable);
+        this.variableMap.set(variable.name, variable);
     }
 
 } // end class Cyclock
+
+
