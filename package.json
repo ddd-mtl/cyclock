@@ -1,7 +1,7 @@
 {
-  "name": "pixi_ts_test",
+  "name": "cyclock",
   "version": "1.0.0",
-  "description": "testyy",
+  "description": "Clock system for displaying values in a circular form ; alt. name TimeCycle (as opposed to timeline)",
   "private": true,
   "scripts": {
     "test": "mocha -r ts-node/register src/**/*.test.ts",

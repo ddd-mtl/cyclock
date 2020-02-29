@@ -16,7 +16,7 @@ export const radixWeek = new Radix(7, "week",
 
 
 export function create_decimal_system(): MixedRadixNumeralSystem {
-    let system = new MixedRadixNumeralSystem("Decimal", OverflowStrategyEnum.Propagate);
+    let system = new MixedRadixNumeralSystem("decimal", OverflowStrategyEnum.Propagate);
     system.push(radixDecimal);
     return system;
 }

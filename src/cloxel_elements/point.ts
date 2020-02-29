@@ -1,6 +1,6 @@
 import {Cloxel} from "../cloxel";
 import {Ray} from "../cloxel_elements/ray";
-import {CyclockUI} from "../ui/cyclockUI";
+import {Clockface} from "../ui/clockface";
 import {toClockAngle} from "../clock_utils";
 
 /**
@@ -9,8 +9,8 @@ import {toClockAngle} from "../clock_utils";
 export class CyPoint extends Ray {
     public distance: number;
 
-    constructor(owner: CyclockUI, name: string, color: number, phase: number, distance: number) {
-        super(owner, name, color, phase);
+    constructor(owner: Clockface, name: string, radix: number, color: number, phase: number, distance: number) {
+        super(owner, name, radix, color, phase);
         this.distance = distance;
     }
 

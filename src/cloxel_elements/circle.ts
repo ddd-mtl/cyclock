@@ -1,4 +1,4 @@
-import {CyclockUI} from "../ui/cyclockUI";
+import {Clockface} from "../ui/clockface";
 import {Cloxel} from "../cloxel";
 
 /**
@@ -10,7 +10,7 @@ export class CyCircle extends Cloxel {
     public can_draw_edge: boolean;
     public can_draw_fill: boolean;
 
-    constructor(owner: CyclockUI, name: string, bg_color: number, color: number, radius_pct: number) {
+    constructor(owner: Clockface, name: string, bg_color: number, color: number, radius_pct: number) {
         super(owner, name, bg_color);
         this.radius_pct = radius_pct;
         this.edge_color = color;

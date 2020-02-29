@@ -1,5 +1,5 @@
 import * as PIXI from "pixi.js"
-import {Cyclock} from "./cyclock";
+import {ClockModel} from "./clockModel";
 import {CloxelType} from "./cloxel_type";
 import {Ray} from "./cloxel_elements/ray";
 
@@ -40,29 +40,29 @@ function init_pixi_app() {
 
   document.body.appendChild(app.view);
 
-  // add sprite with texture
+  // addCloxel sprite with texture
   app.loader
       .add("images/26.jpg")
       .load(setup);
 
   // Setup stuff
   // ===========
-  main_cyclock = new Cyclock(app, 0.50, 12, "main");
+  main_cyclock = new ClockModel(app, 0.50, 12, "main");
   main_cyclock.resize(canvas_size);
   ray = new Ray(main_cyclock, "hour", 0xff0000, 8);
   main_cyclock.insert(ray);
-  //main_cyclock.add({type: CloxelType.Circle, radius_pct: 0.18});
+  //main_cyclock.addCloxel({type: CloxelType.Circle, radius_pct: 0.18});
 
-  // main_cyclock.add({type: CloxelType.Text, phase: 9, distance: 0.9, message: 'saperlipopette'});
+  // main_cyclock.addCloxel({type: CloxelType.Text, phase: 9, distance: 0.9, message: 'saperlipopette'});
 
-  // main_cyclock.add({type: CloxelType.Ray, phase: 3});
-  //main_cyclock.add({type: CloxelType.Slice, phase: 1.5, width: 3});
-  //main_cyclock.add({type: CloxelType.Band, phase: 6, width: 11.999999, start: 0.5, end: 1.0});
+  // main_cyclock.addCloxel({type: CloxelType.Ray, phase: 3});
+  //main_cyclock.addCloxel({type: CloxelType.Slice, phase: 1.5, width: 3});
+  //main_cyclock.addCloxel({type: CloxelType.Band, phase: 6, width: 11.999999, start: 0.5, end: 1.0});
 
   main_cyclock.add({type: CloxelType.Slice, phase: 7.5, width: 2});
   main_cyclock.add({type: CloxelType.Slice, phase: 10.5, width: 2});
 
-  //main_cyclock.add({type: CloxelType.Hand, phase: 6, length_pct:0.5, offset_pct:0.0});
+  //main_cyclock.addCloxel({type: CloxelType.Hand, phase: 6, length_pct:0.5, offset_pct:0.0});
 
   // Time Marks
   main_cyclock.add({type: CloxelType.Text, phase: 0, distance: 1.1, message: '12', can_tilt: false});
@@ -71,9 +71,9 @@ function init_pixi_app() {
   }
 
   // // Nuclear
-  // main_cyclock.add({type: CloxelType.Band, phase: 10, width: 2.2, start: 0.25, end: 1.0});
-  // main_cyclock.add({type: CloxelType.Band, phase: 2, width: 2.2, start: 0.25, end: 1.0});
-  // main_cyclock.add({type: CloxelType.Band, phase: 6, width: 2.2, start: 0.25, end: 1.0});
+  // main_cyclock.addCloxel({type: CloxelType.Band, phase: 10, width: 2.2, start: 0.25, end: 1.0});
+  // main_cyclock.addCloxel({type: CloxelType.Band, phase: 2, width: 2.2, start: 0.25, end: 1.0});
+  // main_cyclock.addCloxel({type: CloxelType.Band, phase: 6, width: 2.2, start: 0.25, end: 1.0});
 
   //Set the app starting state
   current_loop = main_loop;

@@ -1,4 +1,4 @@
-import {Cyclock} from "../cyclock";
+import {ClockModel} from "../clockModel";
 
 /**
  * A Radix definition as part of a numeral system.

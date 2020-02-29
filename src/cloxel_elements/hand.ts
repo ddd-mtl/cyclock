@@ -1,4 +1,4 @@
-import {CyclockUI} from "../ui/cyclockUI";
+import {Clockface} from "../ui/clockface";
 import {toClockAngle} from "../clock_utils";
 import {Ray} from "../cloxel_elements/ray";
 
@@ -12,14 +12,15 @@ export class CyHand extends Ray {
     public offset_pct: number;
 
     constructor(
-        owner: CyclockUI,
+        owner: Clockface,
         name: string,
+        radix: number,
         color: number,
         phase: number,
         length_pct: number,
         offset_pct: number,
         ) {
-        super(owner, name, color, phase);
+        super(owner, name, radix, color, phase);
         this.phase = phase % owner.radix;
         this.length_pct = length_pct;
         this.offset_pct = offset_pct;
@@ -29,7 +30,7 @@ export class CyHand extends Ray {
         // determine line width
         const width = Math.max(1, this.owner.x / 100);
         // pre-calc
-        const phi = toClockAngle(this.phase, this.owner.radix);
+        const phi = toClockAngle(this.phase, this.radix);
         const x = this.owner.radius * Math.cos(phi);
         const y = this.owner.radius * Math.sin(phi);
         // compute end pos

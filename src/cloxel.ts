@@ -1,21 +1,21 @@
 import * as PIXI from "pixi.js"
-import {Cyclock} from "./cyclock"
+import {ClockModel} from "./clockModel"
 import {Ray} from "./cloxel_elements/ray";
 import {CyCircle} from "./cloxel_elements/circle";
-import {CyclockUI} from "./ui/cyclockUI";
+import {Clockface} from "./ui/clockface";
 
 
 /**
- * Cyclock Element.
+ * ClockModel Element.
  * Drawing basic blocks.
  */
 export abstract class Cloxel {
    public readonly name: String;
    public main_color: number;
    protected gfx: PIXI.Graphics;
-   protected owner: CyclockUI;
+   protected owner: Clockface;
 
-    constructor(owner: CyclockUI, name: string, color: number) {
+    constructor(owner: Clockface, name: string, color: number) {
         this.owner = owner;
         this.name = name;
         this.main_color = color;

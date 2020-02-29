@@ -1,4 +1,4 @@
-import {CyclockUI} from "./ui/cyclockUI";
+import {Clockface} from "./ui/clockface";
 import {Ray} from "./cloxel_elements/ray";
 import {CyHand} from "./cloxel_elements/hand";
 import {CyCircle} from "./cloxel_elements/circle";
@@ -17,7 +17,7 @@ export enum CloxelType {
     Sprite
 }
 
-export function createCloxel(owner: CyclockUI, cloxel_desc: object): Cloxel {
+export function createCloxel(owner: Clockface, cloxel_desc: object): Cloxel {
     const count_str = '_' + owner.elementCount();
     const el = cloxel_desc['type'];
     switch (el) {
@@ -27,23 +27,23 @@ export function createCloxel(owner: CyclockUI, cloxel_desc: object): Cloxel {
         }
         case CloxelType.Ray: {
             const name = 'ray' + count_str;
-            return new Ray(owner, name, owner.main_color, cloxel_desc["phase"]);
+            return new Ray(owner, name, cloxel_desc["radix"], owner.main_color, cloxel_desc["phase"]);
         }
         case CloxelType.Hand: {
             const name = 'hand' + count_str;
-            return new CyHand(owner, name, owner.main_color, cloxel_desc["phase"], cloxel_desc["length_pct"], cloxel_desc["offset_pct"]);
+            return new CyHand(owner, name, cloxel_desc["radix"], owner.main_color, cloxel_desc["phase"], cloxel_desc["length_pct"], cloxel_desc["offset_pct"]);
         }
         case CloxelType.Slice: {
             const name = 'slice' + count_str;
-            return new Slice(owner, name, owner.bg_color, owner.main_color, cloxel_desc["phase"], cloxel_desc["length_pct"], cloxel_desc["offset_pct"], cloxel_desc["width"]);
+            return new Slice(owner, name, cloxel_desc["radix"], owner.bg_color, owner.main_color, cloxel_desc["phase"], cloxel_desc["length_pct"], cloxel_desc["offset_pct"], cloxel_desc["width"]);
         }
         case CloxelType.Band: {
             const name = 'band' + count_str;
-            return new Band(owner, name, owner.bg_color, owner.main_color, cloxel_desc["phase"], cloxel_desc["width"], cloxel_desc["start"], cloxel_desc["end"]);
+            return new Band(owner, name, cloxel_desc["radix"], owner.bg_color, owner.main_color, cloxel_desc["phase"], cloxel_desc["width"], cloxel_desc["start"], cloxel_desc["end"]);
         }
         case CloxelType.Text: {
             const name = 'text' + count_str;
-            return new CyText(owner, name, owner.main_color, cloxel_desc["phase"], cloxel_desc["distance"], cloxel_desc["message"], cloxel_desc["can_tilt"]);
+            return new CyText(owner, name, cloxel_desc["radix"], owner.main_color, cloxel_desc["phase"], cloxel_desc["distance"], cloxel_desc["message"], cloxel_desc["can_tilt"]);
         }
         default:
             console.error('unknown enum variant');

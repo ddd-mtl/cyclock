@@ -13,6 +13,14 @@ export class MixedRadixNumeralSystem {
         this.radixStack = [];
     }
 
+    getRadices(): number[] {
+        return this.radices;
+    }
+
+    getSize(): number {
+        return this.radices.length;
+    }
+
     toDigits(value: number): number[] {
         return cyDecode(this.radices, value);
     }

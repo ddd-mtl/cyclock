@@ -1,6 +1,6 @@
 import {MixedRadixVariable} from "../MixedRadix/MixedRadixVariable";
 import { Cloxel } from "../cloxel"
-import {CyclockUI} from "./cyclockUI";
+import {Clockface} from "./clockface";
 import {Ray} from "../cloxel_elements/ray";
 
 export class VariableView extends Cloxel {
@@ -8,7 +8,7 @@ export class VariableView extends Cloxel {
     protected variable: MixedRadixVariable;
 
     // methods
-    constructor(owner: CyclockUI, name: string, color: number, variable: MixedRadixVariable) {
+    constructor(owner: Clockface, name: string, color: number, variable: MixedRadixVariable) {
         super(owner, name, color);
         let ray = new Ray(owner, name + '_ray', color, variable.getValue().getDigits()[0]);
         this.variable = variable;

@@ -1,4 +1,4 @@
-import {CyclockUI} from "../ui/cyclockUI";
+import {Clockface} from "../ui/clockface";
 import {toClockAngle} from "../clock_utils";
 import {Cloxel} from "../cloxel";
 
@@ -8,11 +8,23 @@ import {Cloxel} from "../cloxel";
  */
 export class Ray extends Cloxel {
     public phase: number;
+    public radix: number;
 
     //
-    constructor(owner: CyclockUI, name: string, color: number, phase: number) {
+    constructor(
+        owner: Clockface,
+        name: string,
+        radix: number,
+        color: number,
+        phase: number,
+        ) {
         super(owner, name, color);
-        this.phase = phase % owner.radix;
+        this.radix = radix;
+        this.phase = phase % this.radix;
+    }
+
+    setPhase(phase: number) {
+        this.phase = phase % this.radix;
     }
 
     draw(delta): void {
@@ -23,7 +35,7 @@ export class Ray extends Cloxel {
         this.gfx.lineStyle(width, this.main_color, 1);
         this.gfx.position.x = this.owner.x;
         this.gfx.position.y = this.owner.y;
-        const phi = toClockAngle(this.phase, this.owner.radix);
+        const phi = toClockAngle(this.phase, this.radix);
 
         const x = this.owner.radius * Math.cos(phi);
         const y = this.owner.radius * Math.sin(phi);
