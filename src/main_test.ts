@@ -13,8 +13,8 @@ let text_style;
 let main_cyclock;
 let ray;
 
-init_pixi_app();
-
+//init_pixi_app();
+/*
 /// starting point
 function init_pixi_app() {
 
@@ -78,7 +78,7 @@ function init_pixi_app() {
   //Set the app starting state
   current_loop = main_loop;
 }
-
+*/
 //This code will run when the pixi.loader has finished loading startup images
 function setup() {
   //init_clock(app)

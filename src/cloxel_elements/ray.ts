@@ -2,6 +2,10 @@ import {Clockface} from "../ui/clockface";
 import {toClockAngle} from "../clock_utils";
 import {Cloxel} from "../cloxel";
 
+export function ray_setPhase(ray: Ray, phase: number) {
+    ray.setPhase(phase);
+}
+
 /**
  * Most basic cloxel:
  * A Ray that goes from center to edge.

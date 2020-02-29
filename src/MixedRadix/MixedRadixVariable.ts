@@ -6,7 +6,7 @@ import {MixedRadixValue} from "./MixedRadixValue";
  *
  */
 export interface VariableObserver {
-    onVariableUpdate(value: MixedRadixValue): void;
+    onVariableUpdate(variable: MixedRadixVariable): void;
 }
 
 /**
@@ -35,7 +35,7 @@ export class MixedRadixVariable {
 
     private notifyObservers() {
         for (let obs of this.observerList) {
-            obs.onVariableUpdate(this.value);
+            obs.onVariableUpdate(this);
         }
     }
 

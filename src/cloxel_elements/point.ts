@@ -15,7 +15,7 @@ export class CyPoint extends Ray {
     }
 
     getXY(): number[] {
-        const phi = toClockAngle(this.phase, this.owner.radix);
+        const phi = toClockAngle(this.phase, this.radix);
         const x = this.owner.radius * this.distance * Math.cos(phi);
         const y = this.owner.radius * this.distance * Math.sin(phi);
         return [x, y];

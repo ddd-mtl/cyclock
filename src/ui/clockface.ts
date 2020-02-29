@@ -17,19 +17,19 @@ export enum ClockDisplayType {
  */
 export class Clockface {
     // fields
-    public readonly radix: number;
+    private canvas: ClockCanvas;
     public app: PIXI.Application;
-    protected main_circle: CyCircle;
+    private displayType: ClockDisplayType;
+    //public readonly radix: number;
     public x: number;
     public y: number;
+    protected main_circle: CyCircle;
     private cloxel_map: Map<String, Cloxel>;
     public main_color: number;
     public bg_color: number;
     public radius_pct: number;
     public radius: number;
-    private displayType: ClockDisplayType;
     private model: ClockModel;
-    private canvas: ClockCanvas;
 
     // static create(app: PIXI.Application, params: object): Clockface {
     //     let ui = new Clockface(app, model: ClockModel, params['radius_pct'], params['radix']);
@@ -43,16 +43,20 @@ export class Clockface {
     // -- methods -- //
 
     constructor(canvas: ClockCanvas, model: ClockModel, radius_pct: number, displayType: ClockDisplayType) {
+        const halfSize = canvas.canvasSize / 2;
         this.canvas = canvas;
         this.app = canvas.app;
         //this.radix = radix;
         // this.variableViewList = [];
         this.displayType = displayType;
-        this.radius = 0;
+        this.radius = halfSize * radius_pct ;
         this.radius_pct = radius_pct;
         this.main_color = 0x111111;
         this.bg_color = 0xffffff;
         this.cloxel_map = new Map();
+        this.x = halfSize;
+        this.y = halfSize;
+        this.model = model;
 
         // Register self to parent canvas
         canvas.addClock(this);
@@ -98,9 +102,16 @@ export class Clockface {
         let radix = this.model.getRadix(radix_index);
         // create hand
         const name = 'hand_' + variableName + '_' + radix_index;
-        let hand = new CyHand(this, name, radix, /* this.main_color*/ 0xff00ff, variable.getValue().getDigits()[radix_index], radius_pct, 0);
+        const digit = variable.getValue().getDigits()[radix_index];
+        let hand = new CyHand(this, name, radix, /* this.main_color*/ 0xff00ff, digit, radius_pct, 0);
         this.insertCloxel(hand);
+        hand.addBinding(variable, radix_index);
     }
+
+    onUpdate() {
+
+    }
+
 
     /**
      * Called on window resize

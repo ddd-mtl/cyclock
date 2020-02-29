@@ -8,7 +8,6 @@ export class ClockCanvas {
     public canvasSize: number;
     private currentLoop: (delta: number) => void;
     private clock_list: Clockface[];
-    //private model: ClockModel;
     private frameCallbackList: {(delta: number): void;} [];
 
 
@@ -41,9 +40,9 @@ export class ClockCanvas {
 
         let canvas = new ClockCanvas(app);
         // addCloxel sprite with texture
-        app.loader
-            //.addCloxel("images/26.jpg")
-            .load(canvas.setup);
+        // app.loader
+        //     //.addCloxel("images/26.jpg")
+        //     .load(canvas.setup);
         return canvas;
     }
 
@@ -55,8 +54,6 @@ export class ClockCanvas {
         this.frameCallbackList = [];
         this.currentLoop = this.noop;
         this.clock_list = [];
-        // this.ui = new Clockface(app, model, radius_pct, displayType);
-
     }
 
     addClock(clock: Clockface) {
@@ -79,19 +76,19 @@ export class ClockCanvas {
         this.frameCallbackList = this.frameCallbackList.filter(obj => obj !== fn);
     }
 
-    /**
-     *     This code will run when the pixi.loader has finished loading startup images
-     */
-    private setup() {
-        //Start the main loop
-        this.app.ticker.add(delta => this.pixiLoop(delta));
-
-        // Enable interactions
-        this.app.renderer.plugins.interaction.on('pointerup', onClick);
-        function onClick (event) {
-            console.log('event = ' + JSON.stringify(event))
-        }
-    }
+    // /**
+    //  *     This code will run when the pixi.loader has finished loading startup images
+    //  */
+    // private setup() {
+    //     //Start the main loop
+    //     this.app.ticker.add(delta => this.pixiLoop(delta));
+    //
+    //     // Enable interactions
+    //     this.app.renderer.plugins.interaction.on('pointerup', onClick);
+    //     function onClick (event) {
+    //         console.log('event = ' + JSON.stringify(event))
+    //     }
+    // }
 
     //  -- methods -- //
 

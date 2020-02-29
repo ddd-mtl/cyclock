@@ -29,8 +29,8 @@ export class Slice extends CyHand {
         const phase_start = this.phase - this.half_width;
         const phase_end = this.phase + this.half_width;
 
-        const phi_start = toClockAngle(phase_start, this.owner.radix);
-        const phi_end = toClockAngle(phase_end, this.owner.radix);
+        const phi_start = toClockAngle(phase_start, this.radix);
+        const phi_end = toClockAngle(phase_end, this.radix);
 
         const b_x = this.owner.radius * Math.cos(phi_start);
         const b_y = this.owner.radius * Math.sin(phi_start);
@@ -59,8 +59,8 @@ export class Slice extends CyHand {
         const phase_start = this.phase - this.half_width;
         const phase_end = this.phase + this.half_width;
 
-        const phi_start = toClockAngle(phase_start, this.owner.radix);
-        const phi_end = toClockAngle(phase_end, this.owner.radix);
+        const phi_start = toClockAngle(phase_start, this.radix);
+        const phi_end = toClockAngle(phase_end, this.radix);
 
         const b_x = this.owner.radius * Math.cos(phi_start);
         const b_y = this.owner.radius * Math.sin(phi_start);

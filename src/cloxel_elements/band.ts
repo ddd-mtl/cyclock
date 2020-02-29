@@ -21,8 +21,8 @@ export class Band extends Slice {
         const phase_start = this.phase - this.half_width;
         const phase_end = this.phase + this.half_width;
 
-        const phi_start = toClockAngle(phase_start, this.owner.radix);
-        const phi_end = toClockAngle(phase_end, this.owner.radix);
+        const phi_start = toClockAngle(phase_start, this.radix);
+        const phi_end = toClockAngle(phase_end, this.radix);
 
         const start = this.length_start * this.owner.radius;
         const end = this.length_end * this.owner.radius;

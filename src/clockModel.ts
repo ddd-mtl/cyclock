@@ -43,7 +43,8 @@ export class ClockModel {
         if (!this.variableMap.has(name)) {
             throw new Error(`Invalid argument: "ClockModel does not have variable with that name`);
         }
-        return this.variableMap[name];
+        let res = this.variableMap.get(name);
+        return res;
     }
 
     addVariable(variable: MixedRadixVariable) {

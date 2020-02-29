@@ -53,7 +53,7 @@ export class CyText extends CyPoint {
         const coord = this.getXY();
         this.text.anchor.set(0.5, 0.5);
         if (this.can_tilt) {
-            this.text.rotation = toRadian(this.phase, this.owner.radix);
+            this.text.rotation = toRadian(this.phase, this.radix);
         }
         this.text.position.set(
               this.owner.x + coord[0]
@@ -107,7 +107,7 @@ export class CyText extends CyPoint {
 
         this.sprite = new PIXI.Sprite(renderTextureOne);
         this.sprite.anchor.set(0.5, 0.5);
-        this.sprite.rotation = toRadian(this.phase, this.owner.radix);
+        this.sprite.rotation = toRadian(this.phase, this.radix);
         this.sprite.position.set(this.owner.x + coord[0], this.owner.y + coord[1]);
         this.owner.app.stage.addChild(this.sprite)
     }
