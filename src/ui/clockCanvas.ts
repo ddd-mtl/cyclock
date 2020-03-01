@@ -40,9 +40,10 @@ export class ClockCanvas {
 
         let canvas = new ClockCanvas(app);
         // addCloxel sprite with texture
-        // app.loader
-        //     //.addCloxel("images/26.jpg")
-        //     .load(canvas.setup);
+        let delegate = canvas.setup.bind(canvas);
+        app.loader
+            //.addCloxel("images/26.jpg")
+            .load(delegate);
         return canvas;
     }
 
@@ -76,19 +77,19 @@ export class ClockCanvas {
         this.frameCallbackList = this.frameCallbackList.filter(obj => obj !== fn);
     }
 
-    // /**
-    //  *     This code will run when the pixi.loader has finished loading startup images
-    //  */
-    // private setup() {
-    //     //Start the main loop
-    //     this.app.ticker.add(delta => this.pixiLoop(delta));
-    //
-    //     // Enable interactions
-    //     this.app.renderer.plugins.interaction.on('pointerup', onClick);
-    //     function onClick (event) {
-    //         console.log('event = ' + JSON.stringify(event))
-    //     }
-    // }
+    /**
+     *     This code will run when the pixi.loader has finished loading startup images
+     */
+    private setup() {
+        //Start the main loop
+        this.app.ticker.add(delta => this.pixiLoop(delta));
+
+        // Enable interactions
+        this.app.renderer.plugins.interaction.on('pointerup', onClick);
+        function onClick (event) {
+            console.log('event = ' + JSON.stringify(event))
+        }
+    }
 
     //  -- methods -- //
 

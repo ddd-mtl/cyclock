@@ -30,9 +30,6 @@ function initApp() {
 
   // Setup UI
   rootCanvas = ClockCanvas.create();
-  rootCanvas.app.loader
-      //.addCloxel("images/26.jpg")
-      .load(setup);
   clockface = new Clockface(rootCanvas, clockModel, 0.9, ClockDisplayType.TOP_ONLY);
   clockface.addHand("now", 0, 0.5);
   clockface.addHand("now", 1, 0.7);

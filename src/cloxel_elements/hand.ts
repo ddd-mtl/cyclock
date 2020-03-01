@@ -1,29 +1,17 @@
 import {Clockface} from "../ui/clockface";
 import {toClockAngle} from "../clock_utils";
-import {Ray, ray_setPhase} from "../cloxel_elements/ray";
+import {Ray, VariableBinding} from "../cloxel_elements/ray";
 import {VariableObserver, MixedRadixVariable} from "../MixedRadix/MixedRadixVariable";
 
-class Binding {
-    public readonly name: string;
-    public readonly index: number;
-    public readonly fn: {(ray: Ray, value: number): void};
-
-    constructor(name: string, index: number, fn: {(ray: Ray, value: number): void}) {
-        this.name = name;
-        this.index = index;
-        this.fn = fn;
-    }
-}
 
 /**
  * An extended Ray: has a start and end radius in radius percentage
  * A Ray that goes from center to edge.
  */
-export class CyHand extends Ray implements VariableObserver {
+export class CyHand extends Ray {
     public phase: number;
     public length_pct: number;
     public offset_pct: number;
-    protected bindingList: Binding[];
 
     constructor(
         owner: Clockface,
@@ -38,7 +26,6 @@ export class CyHand extends Ray implements VariableObserver {
         this.phase = phase % radix;
         this.length_pct = length_pct;
         this.offset_pct = offset_pct;
-        this.bindingList = [];
     }
 
     draw(delta): void {
@@ -63,18 +50,9 @@ export class CyHand extends Ray implements VariableObserver {
         this.gfx.lineTo(end_x, end_y);
     }
 
-    onVariableUpdate(variable: MixedRadixVariable): void {
-        for (let binding of this.bindingList) {
-            if (binding.name == variable.name) {
-                let digit = variable.getValue().getDigits()[binding.index];
-                binding.fn(this, digit);
-            }
-        }
-    }
-
     addBinding(variable: MixedRadixVariable, index: number) {
         variable.registerObserver(this);
-        this.bindingList.push(new Binding(variable.name, index, ray_setPhase));
-
+        let delegate = this.setPhase.bind(this);
+        this.bindingList.push(new VariableBinding(variable.name, index, delegate));
     }
 }

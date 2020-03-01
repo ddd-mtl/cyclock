@@ -1,18 +1,31 @@
 import {Clockface} from "../ui/clockface";
 import {toClockAngle} from "../clock_utils";
 import {Cloxel} from "../cloxel";
+import {MixedRadixVariable, VariableObserver} from "../MixedRadix/MixedRadixVariable";
 
-export function ray_setPhase(ray: Ray, phase: number) {
-    ray.setPhase(phase);
+/**
+ *
+ */
+export class VariableBinding {
+    public readonly name: string;
+    public readonly index: number;
+    public readonly fn: {(value: number): void};
+
+    constructor(name: string, index: number, fn: {(value: number): void}) {
+        this.name = name;
+        this.index = index;
+        this.fn = fn;
+    }
 }
 
 /**
  * Most basic cloxel:
  * A Ray that goes from center to edge.
  */
-export class Ray extends Cloxel {
+export class Ray extends Cloxel implements VariableObserver {
     public phase: number;
     public radix: number;
+    protected bindingList: VariableBinding[];
 
     //
     constructor(
@@ -25,6 +38,7 @@ export class Ray extends Cloxel {
         super(owner, name, color);
         this.radix = radix;
         this.phase = phase % this.radix;
+        this.bindingList = [];
     }
 
     setPhase(phase: number) {
@@ -44,5 +58,14 @@ export class Ray extends Cloxel {
         const x = this.owner.radius * Math.cos(phi);
         const y = this.owner.radius * Math.sin(phi);
         this.gfx.lineTo(x, y);
+    }
+
+    onVariableUpdate(variable: MixedRadixVariable): void {
+        for (let binding of this.bindingList) {
+            if (binding.name == variable.name) {
+                let digit = variable.getValue().getDigits()[binding.index];
+                binding.fn(digit);
+            }
+        }
     }
 }
