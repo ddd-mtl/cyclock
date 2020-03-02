@@ -9,11 +9,13 @@ export class CyCircle extends Cloxel {
     public edge_color: number;
     public can_draw_edge: boolean;
     public can_draw_fill: boolean;
+    public bg_color: number;
 
     constructor(owner: Clockface, name: string, bg_color: number, color: number, radius_pct: number) {
-        super(owner, name, bg_color);
+        super(owner, name);
         this.radius_pct = radius_pct;
         this.edge_color = color;
+        this.bg_color = bg_color;
         this.can_draw_edge = true;
         this.can_draw_fill = true;
     }
@@ -24,7 +26,7 @@ export class CyCircle extends Cloxel {
             this.gfx.lineStyle(2, this.edge_color, 1);
         }
         if (this.can_draw_fill) {
-            this.gfx.beginFill(this.main_color);
+            this.gfx.beginFill(this.bg_color);
         }
         this.gfx.drawCircle(0, 0, this.radius_pct * this.owner.radius);
         if (this.can_draw_fill) {

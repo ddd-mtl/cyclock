@@ -11,14 +11,12 @@ import {Clockface} from "./ui/clockface";
  */
 export abstract class Cloxel {
    public readonly name: String;
-   public main_color: number;
    protected gfx: PIXI.Graphics;
    protected owner: Clockface;
 
-    constructor(owner: Clockface, name: string, color: number) {
+    constructor(owner: Clockface, name: string) {
         this.owner = owner;
         this.name = name;
-        this.main_color = color;
         this.gfx = new PIXI.Graphics();
         this.owner.app.stage.addChild(this.gfx);
     }

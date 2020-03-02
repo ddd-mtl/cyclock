@@ -1,11 +1,11 @@
 import {ClockModel} from "../clockModel";
 
 /**
- * A Radix definition as part of a numeral system.
+ * A RadixModel definition as part of a numeral system.
  * Each value can have a name example:
- *  Radix: 7, 'DaysOfWeek', ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+ *  RadixModel: 7, 'DaysOfWeek', ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
  */
-export class Radix {
+export class RadixModel {
     public value: number;
     public denomination: string;
     public names: string[];
@@ -14,7 +14,7 @@ export class Radix {
         this.value = value;
         this.denomination = denomination;
         if (names != undefined && names.length != value) {
-            console.error('Radix\' value names count does not match radix');
+            console.error('RadixModel\' value names count does not match radix');
         }
         this.names = names;
     }

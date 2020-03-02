@@ -1,10 +1,10 @@
-import {Radix} from "../MixedRadix/Radix";
+import {RadixModel} from "./RadixModel";
 import {cyDecode, cyEncode, OverflowStrategyEnum} from "./codec";
 
 export class MixedRadixNumeralSystem {
     public readonly name: string;
     public overflowStrategy: OverflowStrategyEnum;
-    private radixStack: Radix[];
+    private radixStack: RadixModel[];
     private radices: number[];
 
     constructor(name: string, overflowStrategy?: OverflowStrategyEnum) {
@@ -54,7 +54,7 @@ export class MixedRadixNumeralSystem {
         return this.toNames(digits);
     }
 
-    push(radix: Radix) {
+    push(radix: RadixModel) {
         this.radixStack.push(radix);
         this._calcRadices();
     }

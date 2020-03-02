@@ -6,6 +6,7 @@ import {MixedRadixVariable} from "../MixedRadix/MixedRadixVariable";
 import {ClockModel} from "../clockModel";
 import {ClockCanvas} from "./clockCanvas";
 import {CyHand} from "../cloxel_elements/hand";
+import {MarkRing} from "../cloxel_elements/markRing";
 
 export enum ClockDisplayType {
     TOP_ONLY = 1,
@@ -24,7 +25,7 @@ export class Clockface {
     public x: number;
     public y: number;
     protected main_circle: CyCircle;
-    private cloxel_map: Map<String, Cloxel>;
+    private cloxel_map: Map<String, Cloxel[]>;
     public main_color: number;
     public bg_color: number;
     public radius_pct: number;
@@ -88,11 +89,17 @@ export class Clockface {
 
     addCloxel(cloxelDesc: object) {
         let el = createCloxel(this, cloxelDesc);
-        this.cloxel_map.set(el.name, el);
+        this.insertCloxel(el);
     }
 
     insertCloxel(el: Cloxel) {
-        this.cloxel_map.set(el.name, el);
+        let elementList = this.cloxel_map.get(el.name);
+        if (elementList === undefined) {
+            elementList = [el];
+        } else {
+            elementList.push(el);
+        }
+        this.cloxel_map.set(el.name, elementList);
     }
 
     addHand(variableName: string, radix_index: number, radius_pct) {
@@ -108,8 +115,15 @@ export class Clockface {
         hand.addBinding(variable, radix_index);
     }
 
-    onUpdate() {
+    addMarks(radix_index: number, style: PIXI.TextStyle, indexes?: number[]) {
+        let radix = this.model.getRadix(radix_index);
+        const name = "markRing_" + radix_index;
+        let markRing = new MarkRing(this, name, style, radix, indexes);
+        this.insertCloxel(markRing);
+    }
 
+    onUpdate() {
+    // FIXME
     }
 
 
@@ -122,8 +136,10 @@ export class Clockface {
         this.y = canvas_center;
         this.radius = canvas_center * this.radius_pct;
         this.main_circle.resize(size);
-        for (let cloxel of this.cloxel_map.values()) {
-            cloxel.resize(size);
+        for (let cloxelList of this.cloxel_map.values()) {
+            for (let cloxel of cloxelList) {
+                cloxel.resize(size);
+            }
         }
     }
 
@@ -141,8 +157,10 @@ export class Clockface {
      */
     private draw(delta) {
         this.main_circle.draw(delta);
-        for (let cloxel of this.cloxel_map.values()) {
-            cloxel.draw(delta);
+        for (let cloxelList of this.cloxel_map.values()) {
+            for (let cloxel of cloxelList) {
+                cloxel.draw(delta);
+            }
         }
     }
 } // end class Clockface

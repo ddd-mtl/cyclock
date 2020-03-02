@@ -1,7 +1,7 @@
 import { cyEncode, cyDecode } from "./codec";
 import * as chai from "chai"
 import {MixedRadixNumeralSystem} from "./MixidRadixNumeralSystem";
-import {Radix} from "./Radix";
+import {RadixModel} from "./RadixModel";
 let expect = chai.expect;
 let assert = chai.assert;
 
@@ -9,7 +9,7 @@ describe("MixedRadixNumeralSystem", () => {
 
     it("expect nominal behaviour DECIMAL", () => {
         let decimal_system = new MixedRadixNumeralSystem("decimal");
-        let decimal_radix = new Radix(10, "decimal");
+        let decimal_radix = new RadixModel(10, "decimal");
 
         decimal_system.push(decimal_radix);
 
@@ -30,7 +30,7 @@ describe("MixedRadixNumeralSystem", () => {
 
     it("expect nominal behaviour BINARY", () => {
         let oSystem = new MixedRadixNumeralSystem("binary");
-        let oRadix = new Radix(2, "binary");
+        let oRadix = new RadixModel(2, "binary");
 
         oSystem.push(oRadix);
         oSystem.push(oRadix);
@@ -47,7 +47,7 @@ describe("MixedRadixNumeralSystem", () => {
 
     it("expect nominal behaviour Weekly", () => {
         let oSystem = new MixedRadixNumeralSystem("weekly");
-        let oRadix = new Radix(7, "weekly",
+        let oRadix = new RadixModel(7, "weekly",
             ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']);
         oSystem.push(oRadix);
 

@@ -3,6 +3,7 @@ import {ClockCanvas} from "./ui/clockCanvas";
 import {create_time_system} from "./MixedRadix/NumeralSystemFactory";
 import {MixedRadixVariable} from "./MixedRadix/MixedRadixVariable";
 import {ClockDisplayType, Clockface} from "./ui/clockface";
+import * as PIXI from "pixi.js";
 
 // globals
 let clockModel;
@@ -37,6 +38,33 @@ function initApp() {
   clockface.addHand("now", 3, 0.99);
   rootCanvas.addFrameCallback(set_now_digits);
 
+  // clockface.addSlice(0, 8.5, "sleep", 0x111111);
+  // clockface.addSlice(8.5, 10.5, "sarah", 0x882288);
+  // clockface.addSlice(10.5, 12.5, "perso", 0x228822);
+  // clockface.addSlice(12.5, 15.5, "work", 0x0000ff);
+  // clockface.addSlice(15.5, 16.5, "home", 0x882222);
+  // clockface.addSlice(16.5, 19.5, "work", 0x0000ff);
+  // clockface.addSlice(19.5, 0, "family", 0xaa22aa);
+
+  // MarkStyle
+  let bigMark = new PIXI.TextStyle({
+    align: 'center',
+    fontFamily: "Arial",
+    fontSize: 14,
+    fill: "black",
+    stroke: '#111111',
+    strokeThickness: 3,
+  });
+  let smallMark = new PIXI.TextStyle({
+    fontSize: 0,
+    fill: "black",
+    stroke: '#333333',
+    strokeThickness: 1,
+  });
+  clockface.addMarks(0, smallMark); // all
+  clockface.addMarks(0, bigMark, [0,6,12,18]); // specific
+
+  // Start
   rootCanvas.run();
 }
 

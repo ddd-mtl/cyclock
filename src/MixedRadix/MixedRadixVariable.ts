@@ -1,4 +1,4 @@
-import {Radix} from "../MixedRadix/Radix";
+import {RadixModel} from "./RadixModel";
 import {MixedRadixNumeralSystem} from "./MixidRadixNumeralSystem";
 import {MixedRadixValue} from "./MixedRadixValue";
 

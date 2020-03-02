@@ -25,6 +25,7 @@ export class VariableBinding {
 export class Ray extends Cloxel implements VariableObserver {
     public phase: number;
     public radix: number;
+    public main_color: number;
     protected bindingList: VariableBinding[];
 
     //
@@ -35,9 +36,10 @@ export class Ray extends Cloxel implements VariableObserver {
         color: number,
         phase: number,
         ) {
-        super(owner, name, color);
+        super(owner, name);
         this.radix = radix;
         this.phase = phase % this.radix;
+        this.main_color = color;
         this.bindingList = [];
     }
 
