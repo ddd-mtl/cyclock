@@ -1,12 +1,12 @@
 import {Clockface} from "../ui/clockface";
-import {Slice} from "../cloxel_elements/slice";
+import {CySlice} from "./cySlice";
 import {toClockAngle} from "../clock_utils";
 
 /**
  * A slice of the main circle.
  * A thick arc
  */
-export class Band extends Slice {
+export class Band extends CySlice {
     public length_start: number;
     public length_end: number;
 

@@ -10,11 +10,13 @@ export class VariableBinding {
     public readonly name: string;
     public readonly index: number;
     public readonly fn: {(value: number): void};
+    public readonly canFloat: boolean;
 
-    constructor(name: string, index: number, fn: {(value: number): void}) {
+    constructor(name: string, index: number, canFloat: boolean, fn: {(value: number): void}) {
         this.name = name;
         this.index = index;
         this.fn = fn;
+        this.canFloat = canFloat;
     }
 }
 
@@ -65,7 +67,12 @@ export class Ray extends Cloxel implements VariableObserver {
     onVariableUpdate(variable: MixedRadixVariable): void {
         for (let binding of this.bindingList) {
             if (binding.name == variable.name) {
-                let digit = variable.getValue().getDigits()[binding.index];
+                let digit;
+                if (binding.canFloat) {
+                    digit = variable.getValueFloat(binding.index);
+                } else {
+                    digit = variable.getValue().getDigits()[binding.index];
+                }
                 binding.fn(digit);
             }
         }

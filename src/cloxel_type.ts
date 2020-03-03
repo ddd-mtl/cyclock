@@ -3,7 +3,7 @@ import {Ray} from "./cloxel_elements/ray";
 import {CyHand} from "./cloxel_elements/hand";
 import {CyCircle} from "./cloxel_elements/circle";
 import {Cloxel} from "./cloxel";
-import {Slice} from "./cloxel_elements/slice";
+import {CySlice} from "./cloxel_elements/cySlice";
 import {Band} from "./cloxel_elements/band";
 import {CyText} from "./cloxel_elements/text";
 
@@ -35,7 +35,7 @@ export function createCloxel(owner: Clockface, cloxel_desc: object): Cloxel {
         }
         case CloxelType.Slice: {
             const name = 'slice' + count_str;
-            return new Slice(owner, name, cloxel_desc["radix"], owner.bg_color, owner.main_color, cloxel_desc["phase"], cloxel_desc["length_pct"], cloxel_desc["offset_pct"], cloxel_desc["width"]);
+            return new CySlice(owner, name, cloxel_desc["radix"], owner.bg_color, owner.main_color, cloxel_desc["phase"], cloxel_desc["length_pct"], cloxel_desc["offset_pct"], cloxel_desc["width"]);
         }
         case CloxelType.Band: {
             const name = 'band' + count_str;

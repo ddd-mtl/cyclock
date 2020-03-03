@@ -7,7 +7,7 @@ import * as PIXI from "pixi.js";
  * A slice of the main circle.
  * A half-circle (arc) than a triangle.
  */
-export class Slice extends CyHand {
+export class CySlice extends CyHand {
     public half_width: number;
     public fill_color: number;
     public can_draw_edge: boolean;

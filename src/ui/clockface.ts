@@ -7,6 +7,7 @@ import {ClockModel} from "../clockModel";
 import {ClockCanvas} from "./clockCanvas";
 import {CyHand} from "../cloxel_elements/hand";
 import {MarkRing} from "../cloxel_elements/markRing";
+import {CySlice} from "../cloxel_elements/cySlice";
 
 export enum ClockDisplayType {
     TOP_ONLY = 1,
@@ -102,23 +103,37 @@ export class Clockface {
         this.cloxel_map.set(el.name, elementList);
     }
 
-    addHand(variableName: string, radix_index: number, radius_pct) {
+    addHand(variableName: string, radixIndex: number, canFloat: boolean,radiusPct: number) {
         // get variable
         let variable = this.model.getVariable(variableName);
         // get radix
-        let radix = this.model.getRadix(radix_index);
+        let radix = this.model.getRadix(radixIndex);
         // create hand
-        const name = 'hand_' + variableName + '_' + radix_index;
-        const digit = variable.getValue().getDigits()[radix_index];
-        let hand = new CyHand(this, name, radix, /* this.main_color*/ 0xff00ff, digit, radius_pct, 0);
+        const name = 'hand_' + variableName + '_' + radixIndex;
+        const digit = variable.getValue().getDigits()[radixIndex];
+        let hand = new CyHand(this, name, radix, /* this.main_color*/ 0x111111, digit, radiusPct, 0);
         this.insertCloxel(hand);
-        hand.addBinding(variable, radix_index);
+        hand.addBinding(variable, radixIndex, canFloat);
     }
 
-    addMarks(radix_index: number, style: PIXI.TextStyle, indexes?: number[]) {
-        let radix = this.model.getRadix(radix_index);
-        const name = "markRing_" + radix_index;
+    addMarks(radixIndex: number, style: PIXI.TextStyle, indexes?: number[]) {
+        let radix = this.model.getRadix(radixIndex);
+        const name = "markRing_" + radixIndex;
         let markRing = new MarkRing(this, name, style, radix, indexes);
+        this.insertCloxel(markRing);
+    }
+
+    addSlice(radixIndex: number, phaseStart: number, phaseEnd: number, name: string, color: number, edgeColor?: number) {
+        if (phaseStart >= phaseEnd) {
+            throw new Error(`Invalid parameter: phaseStart >= phaseEnd`);
+        }
+        let radix = this.model.getRadix(radixIndex);
+        const width = (phaseEnd - phaseStart) % radix;
+        const phase = phaseStart + width / 2;
+        if (edgeColor === undefined) {
+            edgeColor = color;
+        }
+        let markRing = new CySlice(this, "slice_" + name, radix, color, edgeColor, phase, 1.0, 0.0, width);
         this.insertCloxel(markRing);
     }
 

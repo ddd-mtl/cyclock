@@ -50,9 +50,9 @@ export class CyHand extends Ray {
         this.gfx.lineTo(end_x, end_y);
     }
 
-    addBinding(variable: MixedRadixVariable, index: number) {
+    addBinding(variable: MixedRadixVariable, index: number, canFloat: boolean) {
         variable.registerObserver(this);
         let delegate = this.setPhase.bind(this);
-        this.bindingList.push(new VariableBinding(variable.name, index, delegate));
+        this.bindingList.push(new VariableBinding(variable.name, index, canFloat, delegate));
     }
 }

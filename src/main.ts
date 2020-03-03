@@ -32,39 +32,47 @@ function initApp() {
   // Setup UI
   rootCanvas = ClockCanvas.create();
   clockface = new Clockface(rootCanvas, clockModel, 0.9, ClockDisplayType.TOP_ONLY);
-  clockface.addHand("now", 0, 0.5);
-  clockface.addHand("now", 1, 0.7);
-  clockface.addHand("now", 2, 0.85);
-  clockface.addHand("now", 3, 0.99);
   rootCanvas.addFrameCallback(set_now_digits);
 
-  // clockface.addSlice(0, 8.5, "sleep", 0x111111);
-  // clockface.addSlice(8.5, 10.5, "sarah", 0x882288);
-  // clockface.addSlice(10.5, 12.5, "perso", 0x228822);
-  // clockface.addSlice(12.5, 15.5, "work", 0x0000ff);
-  // clockface.addSlice(15.5, 16.5, "home", 0x882222);
-  // clockface.addSlice(16.5, 19.5, "work", 0x0000ff);
-  // clockface.addSlice(19.5, 0, "family", 0xaa22aa);
+  // -- Describe UI -- //
+
+  clockface.addSlice(0, 0, 8.5, "sleep", 0x999999);
+  clockface.addSlice(0, 8.5, 10.5, "sarah", 0xD3EE52);
+  clockface.addSlice(0, 10.5, 12.5, "perso", 0xD56300);
+  clockface.addSlice(0, 12.5, 15.5, "work", 0x0000ff);
+  clockface.addSlice(0, 15.5, 16.5, "home", 0x882222);
+  clockface.addSlice(0, 16.5, 19.5, "work", 0x0000ff);
+  clockface.addSlice(0, 19.5, 21.5, "family", 0xD3EE52);
+  clockface.addSlice(0, 21.5, 24, "perso", 0xD56300);
 
   // MarkStyle
   let bigMark = new PIXI.TextStyle({
     align: 'center',
     fontFamily: "Arial",
-    fontSize: 14,
+    fontSize: 60,
     fill: "black",
     stroke: '#111111',
-    strokeThickness: 3,
+    strokeThickness: 8,
+    lineHeight: 0.1,
   });
   let smallMark = new PIXI.TextStyle({
     fontSize: 0,
     fill: "black",
     stroke: '#333333',
-    strokeThickness: 1,
+    strokeThickness: 3,
+    lineHeight: 0.05,
   });
   clockface.addMarks(0, smallMark); // all
   clockface.addMarks(0, bigMark, [0,6,12,18]); // specific
 
-  // Start
+  // Hands of time
+  clockface.addHand("now", 0, true,0.5);
+  clockface.addHand("now", 1, false,0.7);
+  clockface.addHand("now", 2, false,0.80);
+  //clockface.addHand("now", 3, false,0.99);
+
+  // -- Start -- //
+
   rootCanvas.run();
 }
 

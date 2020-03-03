@@ -18,24 +18,30 @@ export class CyText extends CyPoint {
     private can_redraw: boolean;
     private sprite: PIXI.Sprite;
 
-    constructor(owner: Clockface, name: string, radix: number, color: number, phase: number, distance: number, message: string, can_tilt: boolean) {
-        super(owner, name, radix, color, phase, distance);
-        this.can_redraw = true;
-        this.message = message;
-        this.can_tilt = can_tilt;
-        this.style = new PIXI.TextStyle({
+    getDefaultStyle(): PIXI.TextStyle {
+        return new PIXI.TextStyle({
             align: 'center',
             fontFamily: "Arial",
             fontSize: 14,
             fill: "black",
             stroke: '#ff3300',
             strokeThickness: 1,
-            // dropShadow: true,
-            // dropShadowColor: "#000000",
-            // dropShadowBlur: 4,
-            // dropShadowAngle: Math.PI / 6,
-            // dropShadowDistance: 6,
         });
+    }
+
+    constructor(owner: Clockface, name: string, radix: number, color: number, phase: number, distance: number, message: string, can_tilt: boolean, style?: PIXI.TextStyle) {
+        super(owner, name, radix, color, phase, distance);
+        this.can_redraw = true;
+        this.message = message;
+        this.can_tilt = can_tilt;
+        if (style === undefined) {
+            this.style = this.getDefaultStyle();
+        } else {
+            if (style.fontSize <= 0) {
+                throw new Error(`Invalid parameter: style.fontSize <= 0`);
+            }
+            this.style = style;
+        }
         this.text = new PIXI.Text(message, this.style);
         //this.text.updateText();
         // if (can_tilt) {

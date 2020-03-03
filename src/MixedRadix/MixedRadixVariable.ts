@@ -61,5 +61,10 @@ export class MixedRadixVariable {
     getValue(): MixedRadixValue {
         return this.value;
     }
+
+    getValueFloat(index: number): number {
+        return this.value.getValueFloat(index);
+    }
+
 }
 
