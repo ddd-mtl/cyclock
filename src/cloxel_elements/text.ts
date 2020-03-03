@@ -29,7 +29,17 @@ export class CyText extends CyPoint {
         });
     }
 
-    constructor(owner: Clockface, name: string, radix: number, color: number, phase: number, distance: number, message: string, can_tilt: boolean, style?: PIXI.TextStyle) {
+    constructor(
+        owner: Clockface,
+        name: string,
+        radix: number,
+        color: number,
+        phase: number,
+        distance: number,
+        message: string,
+        can_tilt: boolean,
+        style?: PIXI.TextStyle,
+        ) {
         super(owner, name, radix, color, phase, distance);
         this.can_redraw = true;
         this.message = message;

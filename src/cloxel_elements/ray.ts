@@ -4,19 +4,19 @@ import {Cloxel} from "../cloxel";
 import {MixedRadixVariable, VariableObserver} from "../MixedRadix/MixedRadixVariable";
 
 /**
- *
+ * Class holding all info needed for a data binding
  */
 export class VariableBinding {
-    public readonly name: string;
-    public readonly index: number;
-    public readonly fn: {(value: number): void};
-    public readonly canFloat: boolean;
+    public readonly name: string; // name of the variable to bind to
+    public readonly index: number; // index of the radix to use
+    public readonly canAsFloat: boolean; // True if variable value must be in float form
+    public readonly fn: {(value: number): void}; // Function to call when variable is updated
 
     constructor(name: string, index: number, canFloat: boolean, fn: {(value: number): void}) {
         this.name = name;
         this.index = index;
         this.fn = fn;
-        this.canFloat = canFloat;
+        this.canAsFloat = canFloat;
     }
 }
 
@@ -27,7 +27,7 @@ export class VariableBinding {
 export class Ray extends Cloxel implements VariableObserver {
     public phase: number;
     public radix: number;
-    public main_color: number;
+    public lineColor: number;
     protected bindingList: VariableBinding[];
 
     //
@@ -35,13 +35,13 @@ export class Ray extends Cloxel implements VariableObserver {
         owner: Clockface,
         name: string,
         radix: number,
-        color: number,
+        lineColor: number,
         phase: number,
         ) {
         super(owner, name);
         this.radix = radix;
         this.phase = phase % this.radix;
-        this.main_color = color;
+        this.lineColor = lineColor;
         this.bindingList = [];
     }
 
@@ -54,7 +54,7 @@ export class Ray extends Cloxel implements VariableObserver {
         const width = Math.max(1, this.owner.x / 100);
         // render
         this.gfx.clear();
-        this.gfx.lineStyle(width, this.main_color, 1);
+        this.gfx.lineStyle(width, this.lineColor, 1);
         this.gfx.position.x = this.owner.x;
         this.gfx.position.y = this.owner.y;
         const phi = toClockAngle(this.phase, this.radix);
@@ -68,7 +68,7 @@ export class Ray extends Cloxel implements VariableObserver {
         for (let binding of this.bindingList) {
             if (binding.name == variable.name) {
                 let digit;
-                if (binding.canFloat) {
+                if (binding.canAsFloat) {
                     digit = variable.getValueFloat(binding.index);
                 } else {
                     digit = variable.getValue().getDigits()[binding.index];

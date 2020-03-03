@@ -51,7 +51,7 @@ function init_pixi_app() {
   main_cyclock.resize(canvas_size);
   ray = new Ray(main_cyclock, "hour", 0xff0000, 8);
   main_cyclock.insert(ray);
-  //main_cyclock.addCloxel({type: CloxelType.Circle, radius_pct: 0.18});
+  //main_cyclock.addCloxel({type: CloxelType.Circle, radiusPct: 0.18});
 
   // main_cyclock.addCloxel({type: CloxelType.Text, phase: 9, distance: 0.9, message: 'saperlipopette'});
 
@@ -62,7 +62,7 @@ function init_pixi_app() {
   main_cyclock.add({type: CloxelType.CySlice, phase: 7.5, width: 2});
   main_cyclock.add({type: CloxelType.CySlice, phase: 10.5, width: 2});
 
-  //main_cyclock.addCloxel({type: CloxelType.Hand, phase: 6, length_pct:0.5, offset_pct:0.0});
+  //main_cyclock.addCloxel({type: CloxelType.Hand, phase: 6, lengthPct:0.5, offsetPct:0.0});
 
   // Time Marks
   main_cyclock.add({type: CloxelType.Text, phase: 0, distance: 1.1, message: '12', can_tilt: false});

@@ -10,22 +10,22 @@ import {VariableObserver, MixedRadixVariable} from "../MixedRadix/MixedRadixVari
  */
 export class CyHand extends Ray {
     public phase: number;
-    public length_pct: number;
-    public offset_pct: number;
+    public lengthPct: number;
+    public offsetPct: number;
 
     constructor(
         owner: Clockface,
         name: string,
         radix: number,
-        color: number,
+        lineColor: number,
         phase: number,
-        length_pct: number,
-        offset_pct: number,
+        lengthPct: number,
+        offsetPct: number,
         ) {
-        super(owner, name, radix, color, phase);
+        super(owner, name, radix, lineColor, phase);
         this.phase = phase % radix;
-        this.length_pct = length_pct;
-        this.offset_pct = offset_pct;
+        this.lengthPct = lengthPct;
+        this.offsetPct = offsetPct;
     }
 
     draw(delta): void {
@@ -36,14 +36,14 @@ export class CyHand extends Ray {
         const x = this.owner.radius * Math.cos(phi);
         const y = this.owner.radius * Math.sin(phi);
         // compute end pos
-        const end_x = x * this.length_pct;
-        const end_y = y * this.length_pct;
+        const end_x = x * this.lengthPct;
+        const end_y = y * this.lengthPct;
         // compute start pos
-        const start_x = x * this.offset_pct;
-        const start_y = y * this.offset_pct;
+        const start_x = x * this.offsetPct;
+        const start_y = y * this.offsetPct;
         // render
         this.gfx.clear();
-        this.gfx.lineStyle(width, this.main_color, 1);
+        this.gfx.lineStyle(width, this.lineColor, 1);
         this.gfx.position.x = this.owner.x;
         this.gfx.position.y = this.owner.y;
         this.gfx.moveTo(start_x, start_y);

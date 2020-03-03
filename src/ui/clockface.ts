@@ -7,7 +7,7 @@ import {ClockModel} from "../clockModel";
 import {ClockCanvas} from "./clockCanvas";
 import {CyHand} from "../cloxel_elements/hand";
 import {MarkRing} from "../cloxel_elements/markRing";
-import {CySlice} from "../cloxel_elements/cySlice";
+import {CySlice} from "../cloxel_elements/slice";
 
 export enum ClockDisplayType {
     TOP_ONLY = 1,
@@ -18,23 +18,24 @@ export enum ClockDisplayType {
  *
  */
 export class Clockface {
-    // fields
+    // -- fields -- //
     private canvas: ClockCanvas;
     public app: PIXI.Application;
     private displayType: ClockDisplayType;
+    protected mainCircle: CyCircle;
+    private cloxelMap: Map<String, Cloxel[]>;
+    private model: ClockModel;
+    public labelStyle: PIXI.TextStyle;
     //public readonly radix: number;
     public x: number;
     public y: number;
-    protected main_circle: CyCircle;
-    private cloxel_map: Map<String, Cloxel[]>;
-    public main_color: number;
-    public bg_color: number;
-    public radius_pct: number;
+    public lineColor: number;
+    public fillColor: number;
+    public radiusPct: number;
     public radius: number;
-    private model: ClockModel;
 
     // static create(app: PIXI.Application, params: object): Clockface {
-    //     let ui = new Clockface(app, model: ClockModel, params['radius_pct'], params['radix']);
+    //     let ui = new Clockface(app, model: ClockModel, params['radiusPct'], params['radix']);
     //     return ui;
     // }
 
@@ -44,21 +45,23 @@ export class Clockface {
 
     // -- methods -- //
 
-    constructor(canvas: ClockCanvas, model: ClockModel, radius_pct: number, displayType: ClockDisplayType) {
+    constructor(canvas: ClockCanvas, model: ClockModel, radiusPct: number, displayType: ClockDisplayType) {
         const halfSize = canvas.canvasSize / 2;
         this.canvas = canvas;
         this.app = canvas.app;
         //this.radix = radix;
         // this.variableViewList = [];
         this.displayType = displayType;
-        this.radius = halfSize * radius_pct ;
-        this.radius_pct = radius_pct;
-        this.main_color = 0x111111;
-        this.bg_color = 0xffffff;
-        this.cloxel_map = new Map();
+        this.radius = halfSize * radiusPct ;
+        this.radiusPct = radiusPct;
+        this.lineColor = 0x111111;
+        this.fillColor = 0xffffff;
+        this.cloxelMap = new Map();
         this.x = halfSize;
         this.y = halfSize;
         this.model = model;
+
+        this.labelStyle = new PIXI.TextStyle();
 
         // Register self to parent canvas
         canvas.addClock(this);
@@ -70,7 +73,7 @@ export class Clockface {
     buildDisplay() {
         switch (this.displayType) {
             case ClockDisplayType.TOP_ONLY: {
-                this.main_circle = new CyCircle(this, "main_circle", this.bg_color, this.main_color, 1.0);
+                this.mainCircle = new CyCircle(this, "mainCircle", this.fillColor, this.lineColor, 1.0);
                 return;
             }
             case ClockDisplayType.ALL_RADICES: {
@@ -85,7 +88,7 @@ export class Clockface {
     // }
 
     elementCount(): number {
-        return this.cloxel_map.size;
+        return this.cloxelMap.size;
     }
 
     addCloxel(cloxelDesc: object) {
@@ -94,13 +97,17 @@ export class Clockface {
     }
 
     insertCloxel(el: Cloxel) {
-        let elementList = this.cloxel_map.get(el.name);
+        let elementList = this.cloxelMap.get(el.name);
         if (elementList === undefined) {
             elementList = [el];
         } else {
             elementList.push(el);
         }
-        this.cloxel_map.set(el.name, elementList);
+        this.cloxelMap.set(el.name, elementList);
+    }
+
+    setLabelStyle(labelStyle: PIXI.TextStyle) {
+        this.labelStyle = labelStyle;
     }
 
     addHand(variableName: string, radixIndex: number, canFloat: boolean,radiusPct: number) {
@@ -111,7 +118,7 @@ export class Clockface {
         // create hand
         const name = 'hand_' + variableName + '_' + radixIndex;
         const digit = variable.getValue().getDigits()[radixIndex];
-        let hand = new CyHand(this, name, radix, /* this.main_color*/ 0x111111, digit, radiusPct, 0);
+        let hand = new CyHand(this, name, radix, /* this.lineColor*/ 0x111111, digit, radiusPct, 0);
         this.insertCloxel(hand);
         hand.addBinding(variable, radixIndex, canFloat);
     }
@@ -133,8 +140,22 @@ export class Clockface {
         if (edgeColor === undefined) {
             edgeColor = color;
         }
-        let markRing = new CySlice(this, "slice_" + name, radix, color, edgeColor, phase, 1.0, 0.0, width);
-        this.insertCloxel(markRing);
+        let slice = new CySlice(
+            this,
+            name, // "slice_" + name,
+            radix,
+            color,
+            edgeColor,
+            phase,
+            1.0,
+            0.0,
+            width,
+            false,
+            true,
+            true,
+            this.labelStyle,
+            );
+        this.insertCloxel(slice);
     }
 
     onUpdate() {
@@ -149,9 +170,9 @@ export class Clockface {
         const canvas_center = size / 2;
         this.x = canvas_center;
         this.y = canvas_center;
-        this.radius = canvas_center * this.radius_pct;
-        this.main_circle.resize(size);
-        for (let cloxelList of this.cloxel_map.values()) {
+        this.radius = canvas_center * this.radiusPct;
+        this.mainCircle.resize(size);
+        for (let cloxelList of this.cloxelMap.values()) {
             for (let cloxel of cloxelList) {
                 cloxel.resize(size);
             }
@@ -171,8 +192,8 @@ export class Clockface {
      * @param delta
      */
     private draw(delta) {
-        this.main_circle.draw(delta);
-        for (let cloxelList of this.cloxel_map.values()) {
+        this.mainCircle.draw(delta);
+        for (let cloxelList of this.cloxelMap.values()) {
             for (let cloxel of cloxelList) {
                 cloxel.draw(delta);
             }

@@ -36,12 +36,31 @@ function initApp() {
 
   // -- Describe UI -- //
 
+  // let labelStyle = new PIXI.TextStyle({
+  //   fontSize: 18,
+  //   fill: "black",
+  //   stroke: '#eeeeee',
+  //   strokeThickness: 0.2,
+  // });
+  // clockface.setLabelStyle(labelStyle);
+
+  // // Normal day
+  // clockface.addSlice(0, 0, 8.5, "sleep", 0x999999);
+  // clockface.addSlice(0, 8.5, 10.5, "sarah", 0xD3EE52);
+  // clockface.addSlice(0, 10.5, 12.5, "perso", 0xD56300);
+  // clockface.addSlice(0, 12.5, 15.5, "work", 0x0000ff);
+  // clockface.addSlice(0, 15.5, 16.5, "home", 0x882222);
+  // clockface.addSlice(0, 16.5, 19.5, "work", 0x0000ff);
+  // clockface.addSlice(0, 19.5, 21.5, "family", 0xD3EE52);
+  // clockface.addSlice(0, 21.5, 24, "perso", 0xD56300);
+
+  // Pick-up day
   clockface.addSlice(0, 0, 8.5, "sleep", 0x999999);
-  clockface.addSlice(0, 8.5, 10.5, "sarah", 0xD3EE52);
-  clockface.addSlice(0, 10.5, 12.5, "perso", 0xD56300);
-  clockface.addSlice(0, 12.5, 15.5, "work", 0x0000ff);
-  clockface.addSlice(0, 15.5, 16.5, "home", 0x882222);
-  clockface.addSlice(0, 16.5, 19.5, "work", 0x0000ff);
+  clockface.addSlice(0, 8.5, 9.5, "wake-up", 0xD3EE52);
+  clockface.addSlice(0, 9.5, 12.5, "work", 0x0000ff);
+  clockface.addSlice(0, 12.5, 14.5, "home", 0x882222);
+  clockface.addSlice(0, 14.5, 17, "work", 0x0000ff);
+  clockface.addSlice(0, 17, 19.5, "sarah", 0xF9D2DE);
   clockface.addSlice(0, 19.5, 21.5, "family", 0xD3EE52);
   clockface.addSlice(0, 21.5, 24, "perso", 0xD56300);
 

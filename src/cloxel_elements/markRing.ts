@@ -43,7 +43,7 @@ export class MarkRing extends Cloxel {
         this.gfx.clear();
         this.gfx.lineStyle(this.style.strokeThickness, +this.style.stroke, 1);
 
-        const length_pct = 1 - this.style.lineHeight;
+        const lengthPct = 1 - this.style.lineHeight;
         for (let index of this.indexes) {
             index = index % this.radix;
             // Draw mark lines
@@ -51,7 +51,7 @@ export class MarkRing extends Cloxel {
             const x = this.owner.radius * Math.cos(phi);
             const y = this.owner.radius * Math.sin(phi);
             this.gfx.moveTo(x, y);
-            this.gfx.lineTo(x * length_pct, y * length_pct);
+            this.gfx.lineTo(x * lengthPct, y * lengthPct);
         }
         //
         this.gfx.x = this.owner.x;
