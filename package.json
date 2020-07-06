@@ -26,6 +26,8 @@
     "webpack-cli": "^3.1.2"
   },
   "dependencies": {
+    "@pixi/filter-ascii": "^3.1.1",
+    "@pixi/filter-glow": "^3.1.1",
     "pixi.js": "^5.2.1"
   }
 }

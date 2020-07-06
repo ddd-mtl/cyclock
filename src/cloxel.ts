@@ -25,6 +25,10 @@ export abstract class Cloxel {
         // n/a
    }
 
+   setFilters(filters) {
+       this.gfx.filters = filters;
+
+   }
     abstract draw(delta): void;
 
     resize(size: number): void {

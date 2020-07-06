@@ -13,7 +13,12 @@ export class ClockCanvas {
 
     // -- static -- //
 
-    static create(params?: object): ClockCanvas {
+    static create(params?): ClockCanvas {
+        const defaults = {
+            bgColor: 0xffffff,
+        }
+        const config = params != undefined? params : defaults;
+
         let canvas_size = Math.min(window.innerHeight, window.innerWidth);
 
         //Create a Pixi Application
@@ -27,7 +32,7 @@ export class ClockCanvas {
         );
 
         // change bg color
-        app.renderer.backgroundColor = 0x561639;
+        app.renderer.backgroundColor = config.bgColor;
 
         // full window (+ 0 border style)
         // or use scaleToWindow: https://github.com/kittykatattack/scaleToWindow

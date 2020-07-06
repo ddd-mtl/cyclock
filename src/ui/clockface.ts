@@ -33,6 +33,7 @@ export class Clockface {
     public fillColor: number;
     public radiusPct: number;
     public radius: number;
+    public canDrawRim: boolean;
 
     // static create(app: PIXI.Application, params: object): Clockface {
     //     let ui = new Clockface(app, model: ClockModel, params['radiusPct'], params['radix']);
@@ -45,7 +46,14 @@ export class Clockface {
 
     // -- methods -- //
 
-    constructor(canvas: ClockCanvas, model: ClockModel, radiusPct: number, displayType: ClockDisplayType) {
+    constructor(
+        canvas: ClockCanvas,
+        model: ClockModel,
+        radiusPct: number,
+        displayType: ClockDisplayType,
+        lineColor: number,
+        fillColor: number,
+        canDrawRim: boolean) {
         const halfSize = canvas.canvasSize / 2;
         this.canvas = canvas;
         this.app = canvas.app;
@@ -54,12 +62,13 @@ export class Clockface {
         this.displayType = displayType;
         this.radius = halfSize * radiusPct ;
         this.radiusPct = radiusPct;
-        this.lineColor = 0x111111;
-        this.fillColor = 0xffffff;
+        this.lineColor = lineColor;
+        this.fillColor = fillColor;
         this.cloxelMap = new Map();
         this.x = halfSize;
         this.y = halfSize;
         this.model = model;
+        this.canDrawRim = canDrawRim;
 
         this.labelStyle = new PIXI.TextStyle();
 
@@ -73,7 +82,13 @@ export class Clockface {
     buildDisplay() {
         switch (this.displayType) {
             case ClockDisplayType.TOP_ONLY: {
-                this.mainCircle = new CyCircle(this, "mainCircle", this.fillColor, this.lineColor, 1.0);
+                if(this.canDrawRim) {
+                    this.mainCircle = new CyCircle(this, "rim", this.fillColor, this.lineColor, 1.0, 2, true, true);
+                } else {
+                    this.mainCircle = new CyCircle(this, "rim", this.fillColor, this.lineColor, 1.0, 2, false, false);
+
+                }
+
                 return;
             }
             case ClockDisplayType.ALL_RADICES: {
@@ -94,6 +109,14 @@ export class Clockface {
     addCloxel(cloxelDesc: object) {
         let el = createCloxel(this, cloxelDesc);
         this.insertCloxel(el);
+    }
+
+    getCloxel(name: string): Cloxel | undefined {
+        let elementList = this.cloxelMap.get(name);
+        if (elementList == undefined) {
+            return undefined;
+        }
+        return elementList[0];
     }
 
     insertCloxel(el: Cloxel) {
@@ -128,6 +151,19 @@ export class Clockface {
         const name = "markRing_" + radixIndex;
         let markRing = new MarkRing(this, name, style, radix, indexes);
         this.insertCloxel(markRing);
+    }
+
+    addCircle(bg_color: number, line_color: number, radius_pct: number,
+              line_width?: number,
+              can_draw_edge?: boolean,
+              can_draw_fill?: boolean,
+              edge_alpha?: number,
+              bg_alpha?: number,
+              nameParam?: string): string {
+        let name = nameParam != undefined? nameParam : "circle_" + this.elementCount();
+        let circle = new CyCircle(this, name, bg_color, line_color, radius_pct, line_width, can_draw_edge, can_draw_fill, edge_alpha, bg_alpha);
+        this.insertCloxel(circle);
+        return name;
     }
 
     addSlice(radixIndex: number, phaseStart: number, phaseEnd: number, name: string, color: number, edgeColor?: number) {
