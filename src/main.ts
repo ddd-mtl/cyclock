@@ -5,6 +5,11 @@ import {MixedRadixVariable} from "./MixedRadix/MixedRadixVariable";
 import {ClockDisplayType, Clockface} from "./ui/clockface";
 import * as PIXI from "pixi.js";
 import {GlowFilter} from "@pixi/filter-glow";
+import {BevelFilter} from "@pixi/filter-bevel";
+import { gsap } from "gsap";
+import { PixiPlugin } from "gsap/PixiPlugin.js";
+
+gsap.registerPlugin(PixiPlugin);
 
 // globals
 let clockModel;
@@ -22,6 +27,8 @@ const white = 0xF8F6F8;
 
 // start
 initApp();
+
+var gCircle;
 
 /**
  * Starting point
@@ -46,12 +53,24 @@ function initApp() {
   clockface = new Clockface(rootCanvas, clockModel, 0.9, ClockDisplayType.TOP_ONLY, 0x000000ff, 0xffffffff, false);
   rootCanvas.addFrameCallback(set_now_digits);
 
+  rootCanvas.app.ticker.stop();
+  gsap.ticker.fps(60);
+  gsap.ticker.add(time => {
+    // console.log('gsap ticker: ' + time);
+    rootCanvas.app.ticker.update();
+    //rootCanvas.pixiLoop(delta);
+  });
+
   clockface.addCircle(white, white, 0.25, 5, true, false);
   let glowy = clockface.addCircle(white, white, 0.5, 6, true, false);
   clockface.addCircle(white, white, 0.75, 5, true, false);
   clockface.addCircle(white, white, 1.0, 5, true, false);
-  let gCircle = clockface.getCloxel(glowy);
-  gCircle.setFilters([new GlowFilter({innerStrength:10, outerStrength:2})]);
+  gCircle = clockface.getCloxel(glowy);
+  gCircle.setFilters([new GlowFilter({innerStrength:10, outerStrength:2}), new BevelFilter({rotation: 75, thickness:1, lightAlpha: 0.7, lightColor: 0xffffff, shadowColor:0x222222, shadowAlpha: 0.85})]);
+
+  //gCircle.edge_color = blue;
+  //gCircle.radius_pct = 1.0;
+
 
   // -- TODO -- //
 
@@ -113,23 +132,30 @@ function initApp() {
   // //clockface.addHand("now", 3, false,0.99);
 
   // -- Start -- //
+  rootCanvas.app.ticker.add(delta => testLoop(delta));
+  gsap.to(gCircle, {radius_pct: 1.0, duration: 5, repeat: -1, yoyo: true});
 
   rootCanvas.run();
 }
-
-/**
- * This code will run when the pixi.loader has finished loading startup images
- */
-function setup() {
-  //Start the main loop
-  rootCanvas.app.ticker.add(delta => rootCanvas.pixiLoop(delta));
-
-  // Enable interactions
-  rootCanvas.app.renderer.plugins.interaction.on('pointerup', onClick);
-  function onClick (event) {
-    console.log('event = ' + JSON.stringify(event))
-  }
+function testLoop(delta) {
+    //gCircle.radius_pct += 0.01;
+    //gCircle.radius_pct %= 1.5;
 }
+
+// /**
+//  * This code will run when the pixi.loader has finished loading startup images
+//  */
+// function setup() {
+//   console.log('SETUP ')
+//   //Start the main loop
+//   rootCanvas.app.ticker.add(delta => rootCanvas.pixiLoop(delta));
+//
+//   // Enable interactions
+//   rootCanvas.app.renderer.plugins.interaction.on('pointerup', onClick);
+//   function onClick (event) {
+//     console.log('event = ' + JSON.stringify(event))
+//   }
+// }
 
 function set_now_digits(delta?: number) {
   const now = new Date();

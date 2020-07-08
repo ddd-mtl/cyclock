@@ -27,7 +27,9 @@
   },
   "dependencies": {
     "@pixi/filter-ascii": "^3.1.1",
+    "@pixi/filter-bevel": "^3.1.1",
     "@pixi/filter-glow": "^3.1.1",
+    "gsap": "^3.3.4",
     "pixi.js": "^5.2.1"
   }
 }
