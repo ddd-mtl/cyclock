@@ -1,7 +1,4 @@
 import * as PIXI from "pixi.js"
-import {ClockModel} from "./clockModel"
-import {Ray} from "./cloxel_elements/ray";
-import {CyCircle} from "./cloxel_elements/circle";
 import {Clockface} from "./ui/clockface";
 
 

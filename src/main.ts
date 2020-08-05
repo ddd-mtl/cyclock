@@ -6,8 +6,12 @@ import {ClockDisplayType, Clockface} from "./ui/clockface";
 import * as PIXI from "pixi.js";
 import {GlowFilter} from "@pixi/filter-glow";
 import {BevelFilter} from "@pixi/filter-bevel";
+import {FXAAFilter} from "@pixi/filter-fxaa";
 import { gsap } from "gsap";
 import { PixiPlugin } from "gsap/PixiPlugin.js";
+import * as dat from 'dat.gui';
+
+const devgui = new dat.GUI();
 
 gsap.registerPlugin(PixiPlugin);
 
@@ -30,6 +34,10 @@ initApp();
 
 var gCircle;
 
+function setValue() {
+
+}
+
 /**
  * Starting point
  */
@@ -40,7 +48,7 @@ function initApp() {
   let timeSystem = create_time_system();
   clockModel = new ClockModel("main", timeSystem);
 
-  // Create variable
+  // Create clock variable
   now_mrv = new MixedRadixVariable("now", 0, timeSystem);
   set_now_digits();
   clockModel.addVariable(now_mrv);
@@ -49,9 +57,24 @@ function initApp() {
   const config = {
     bgColor: orange,
   };
+
   rootCanvas = ClockCanvas.create(config);
   clockface = new Clockface(rootCanvas, clockModel, 0.9, ClockDisplayType.TOP_ONLY, 0x000000ff, 0xffffffff, false);
   rootCanvas.addFrameCallback(set_now_digits);
+
+  devgui.addColor(config, 'bgColor').onChange(function(newValue) {
+    rootCanvas.app.renderer.backgroundColor = newValue;
+  });
+
+  devgui.add(clockface, 'x').min(0).max(1000).step(10);
+  devgui.add(clockface, 'y').min(0).max(1000).step(10);
+  // devgui.addColor(clockface, 'lineColor');
+  // devgui.addColor(clockface, 'fillColor').onChange(function(newValue) {
+  //   console.log("Value changed to:  ", newValue);
+  // });
+  //devgui.add(clockface, 'radiusPct').min(0).max(1).step(0.01);
+  devgui.add(clockface, 'radius').min(0).max(1000).step(10);
+  devgui.add(clockface, 'canDrawRim');
 
   rootCanvas.app.ticker.stop();
   gsap.ticker.fps(60);
@@ -66,7 +89,10 @@ function initApp() {
   clockface.addCircle(white, white, 0.75, 5, true, false);
   clockface.addCircle(white, white, 1.0, 5, true, false);
   gCircle = clockface.getCloxel(glowy);
-  gCircle.setFilters([new GlowFilter({innerStrength:10, outerStrength:2}), new BevelFilter({rotation: 75, thickness:1, lightAlpha: 0.7, lightColor: 0xffffff, shadowColor:0x222222, shadowAlpha: 0.85})]);
+  gCircle.setFilters([
+      new GlowFilter({innerStrength:10, outerStrength:2})
+    , new BevelFilter({rotation: 75, thickness:1, lightAlpha: 0.7, lightColor: 0xffffff, shadowColor:0x222222, shadowAlpha: 0.85})
+  , new FXAAFilter()]);
 
   //gCircle.edge_color = blue;
   //gCircle.radius_pct = 1.0;
@@ -133,7 +159,7 @@ function initApp() {
 
   // -- Start -- //
   rootCanvas.app.ticker.add(delta => testLoop(delta));
-  gsap.to(gCircle, {radius_pct: 1.0, duration: 5, repeat: -1, yoyo: true});
+  //gsap.to(gCircle, {radius_pct: 1.0, duration: 5, repeat: -1, yoyo: true});
 
   rootCanvas.run();
 }

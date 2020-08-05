@@ -6,7 +6,8 @@
   "scripts": {
     "test": "mocha -r ts-node/register src/**/*.test.ts",
     "coverage": "nyc -r lcov -e .ts -x \"*.test.ts\" npm run test",
-    "build": "webpack",
+    "build": "esbuild --sourcemap --bundle src/main.ts --outdir=dist",
+    "release": "esbuild --minify --bundle src/main.ts --outdir=dist",
     "clean": "",
     "buildest": "tsc && webpack"
   },
@@ -17,6 +18,7 @@
     "@types/chai": "^4.2.9",
     "@types/mocha": "^7.0.1",
     "chai": "^4.2.0",
+    "esbuild": "^0.6.16",
     "mocha": "^7.0.1",
     "nyc": "^15.0.0",
     "ts-loader": "^6.2.1",
@@ -28,7 +30,9 @@
   "dependencies": {
     "@pixi/filter-ascii": "^3.1.1",
     "@pixi/filter-bevel": "^3.1.1",
+    "@pixi/filter-fxaa": "^5.3.0",
     "@pixi/filter-glow": "^3.1.1",
+    "dat.gui": "^0.7.7",
     "gsap": "^3.3.4",
     "pixi.js": "^5.2.1"
   }
